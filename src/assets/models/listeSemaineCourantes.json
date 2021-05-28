@@ -1,0 +1,32 @@
+[
+    {
+      "id":0,
+      "libelleDateDebut" : "11 avril",
+      "libelleDateFin" : "17 avril"
+    },
+    {
+      "id":0,
+      "libelleDateDebut" : "18 avril",
+      "libelleDateFin" : "24 avril"
+    },
+    {
+      "id":0,
+      "libelleDateDebut" : "25 avril",
+      "libelleDateFin" : "01 mai"
+    },
+    {
+      "id":0,
+      "libelleDateDebut" : "02 mai",
+      "libelleDateFin" : "08 mai"
+    },
+    {
+      "id":0,
+      "libelleDateDebut" : "09 mai",
+      "libelleDateFin" : "15 mai"
+    },
+    {
+      "id":0,
+      "libelleDateDebut" : "16 mai",
+      "libelleDateFin" : "21 mai"
+    }
+  ]

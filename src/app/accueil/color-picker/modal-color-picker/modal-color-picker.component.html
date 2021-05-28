@@ -1,0 +1,29 @@
+
+<div class="modal-header justify-content-center">
+    <h4 class="title title-up">Modifier la couleur</h4>
+</div>
+<div class="modal-body">
+    <div class="container">
+    <blockquote class="blockquote blockquote-primary">
+        <div class="row">
+            <div class="col text-center">
+                <div class="color-picker">
+                    <div *ngIf="show" class="opened">
+                      <div class="colors">
+                        <div (click)="changeColor(paint)" *ngFor="let paint of defaultColors" class="circle"
+                             [ngStyle]="{'background': paint}"></div>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+        </div>
+    </blockquote>
+    </div>
+</div>
+<div class="row modal-footer"  id ="outer">
+    <div class="col text-center">
+        <button type="button" class="btn btn-orange" id ="inner" (click)="closeModal()">Annuler</button>
+    </div>
+    
+    
+</div>

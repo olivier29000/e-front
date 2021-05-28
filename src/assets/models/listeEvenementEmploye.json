@@ -1,0 +1,30 @@
+[
+    {
+        "idEmploye" : 0,
+        "title": "Magali",
+        "start": 1617253200000,
+        "end": 1617292800000,
+        "className": "event-default"
+      },{
+        "idEmploye" : 1,
+        "title": "Simon",
+        "start": 1617253200000,
+        "end": 1617292800000,
+        "className": "event-azure"
+        
+      },{
+        "idEmploye" : 2,
+        "title": "Regis",
+        "start": 1617253200000,
+        "end": 1617292800000,
+        "className": "event-green"
+        
+      },{
+        "idEmploye" : 3,
+        "title": "AAAA",
+        "start": 1617253200000,
+        "end": 1617292800000,
+        "className": "event-green"
+        
+      }
+]

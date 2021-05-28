@@ -1,0 +1,77 @@
+<div class="wrapper">
+    <div class="page-header page-header-small">
+        <div class="page-header-image rellax-header" style="background-image: url('assets/img/backgroundLogin.jpg') ;">
+        </div>
+        <div class="content-center">
+            <div class="row">
+                <div class="col-md-8 ml-auto mr-auto text-center">
+                    <h2 class="title">INTRANET</h2>
+                    <h4>Epicerie du port - Sainte Marine</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="cards" class="section section-cards" >
+        <div class="cards">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-lg-4" *ngFor = "let logiciel of utilisateur.listeLogiciel">
+                        <div class="card card-pricing">
+                            <div class="card-body">
+                                <h6 class="category">{{logiciel.titre}}</h6>
+                                <div class="icon icon-primary">
+                                    <i class="now-ui-icons {{logiciel.icon}}"></i>
+                                </div>
+                                <a [routerLink]="['/accueil/' + logiciel.link]" class="btn btn-primary btn-round">{{logiciel.texteBouton}}</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card card-pricing">
+                            <div class="card-body">
+                                <h6 class="category">Gestion Commandes</h6>
+                                <div class="icon icon-primary">
+                                    <i class="now-ui-icons files_paper"></i>
+                                </div>
+                                <a href="#pablo" class="btn btn-primary btn-round">Acceder</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card card-pricing">
+                            <div class="card-body">
+                                <h6 class="category">Mon Calendrier</h6>
+                                <div class="icon icon-primary">
+                                    <i class="now-ui-icons ui-1_calendar-60"></i>
+                                </div>
+                                <a [routerLink]="['/accueil/mon-calendrier']" class="btn btn-primary btn-round">Acceder</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card card-pricing">
+                            <div class="card-body">
+                                <h6 class="category">Gestion du panneau d'affichage</h6>
+                                <div class="icon icon-primary">
+                                    <i class="now-ui-icons media-1_album"></i>
+                                </div>
+                                <a  [routerLink]="['/accueil/gestion-panneau-affichage']" class="btn btn-primary btn-round">Acceder</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card card-pricing">
+                            <div class="card-body">
+                                <h6 class="category">Gestion des employés</h6>
+                                <div class="icon icon-primary">
+                                    <i class="now-ui-icons users_single-02"></i>
+                                </div>
+                                <a [routerLink]="['/accueil/gestion-employes']" class="btn btn-primary btn-round">Acceder</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

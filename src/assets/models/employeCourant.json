@@ -1,0 +1,34 @@
+{
+    "id":4,
+    "nom":"Gertrude",
+    "tempsAbscence":0,
+    "tempsConge":7,
+    "tempsTravail":166,
+    "listeEvenementEmploye":[
+        {
+            "id":1,
+            "title":"TRAVAIL",
+            "start":1617253200000,
+            "end":1617292800000,
+            "className":"event-default"
+        },{
+            "id":1,
+            "title":"TRAVAIL",
+            "start":1617339600000,
+            "end":1617379200000,
+            "className":"event-default"
+        },{
+            "id":1,
+            "title":"CONGE",
+            "start":1617426000000,
+            "end":1617465600000,
+            "className":"event-azure"
+        },{
+            "id":1,
+            "title":"TRAVAIL",
+            "start":1617512400000,
+            "end":1617552000000,
+            "className":"event-default"
+        }
+    ]
+}

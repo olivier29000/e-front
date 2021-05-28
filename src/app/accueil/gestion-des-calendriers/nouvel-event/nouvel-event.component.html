@@ -1,0 +1,58 @@
+<div class="section pb-0 pt-0">
+    <div class="container">
+        
+        <div class="row">
+            <div class="col text-center p-0">
+                <div class="card">
+                    <div class = "iconFermeture" (click) = "fermer()">
+                        <i class="now-ui-icons ui-1_simple-remove"></i>
+                    </div>
+                    <div class="card-body mb-0">
+                        <div class="row">
+                            <div class="col text-center">
+                                <h4>Nouvel Evenement pour {{utilisateur.nomPrenom}}</h4>
+                                <h4>{{event.etatEvent.title}} du {{getDateString(event.start)}} au {{getDateString(event.end)}}</h4>
+                            </div>
+                        </div>
+                        <div class="row border" *ngIf = "listeEtatEvent">
+                            <div class="col-12 text-center">
+                                <h4>Type d'évènement</h4>
+                            </div>
+                            <div class="col-6 col-md-4 col-lg-3 text-center" *ngFor = "let etatEvent of listeEtatEvent">
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="checkbox" [checked] = "etatEvent.id == event.etatEvent.id"
+                                        (click) = "selectEtatEvent(etatEvent)">
+                                        <span class="form-check-sign"></span>
+                                        {{etatEvent.title}}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class = "card-footer">
+                                
+                        <div class="row">
+                            <div class = "col text-center">
+
+                                <button *ngIf = "!requeteEnCours" class="btn btn-warning  btn-round btn-lg"
+                                (click) = "fermer()">Annuler</button>
+                                <button *ngIf = "!requeteEnCours" class="btn btn-success  btn-round btn-lg"
+                                (click) = "postEvent()">Valider</button>
+                                 
+                                <button *ngIf = "requeteEnCours" class="btn btn-success btn-round" 
+                                        type="button" disabled>
+                                        <span class="spinner-border spinner-border-sm" 
+                                        role="status" 
+                                        aria-hidden="true">
+                                        </span>
+                                </button>    
+                            </div>
+                        </div>
+                        
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

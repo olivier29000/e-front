@@ -1,0 +1,43 @@
+[
+    {
+        "id" : 0,
+        "nom" : "magali",
+        "email" : "las@yahoo.fr",
+        "motDePasse" : "toto",
+        "dateDebutContrat" : 11111111111,
+        "dateFinContrat" : 11111111111,
+        "couleur" : "rgba(50,50,50,1)"
+    },{
+        "id" : 1,
+        "nom" : "simon",
+        "email" : "lasdfd@yahoo.fr",
+        "motDePasse" : "todfdto",
+        "dateDebutContrat" : 55555,
+        "dateFinContrat" : 11115551111111,
+        "couleur" : "rgba(50,50,50,1)"
+    },{
+        "id" : 2,
+        "nom" : "regis",
+        "email" : "las@yahoo.fr",
+        "motDePasse" : "toto",
+        "dateDebutContrat" : 11111111111,
+        "dateFinContrat" : 11111111111,
+        "couleur" : "rgba(50,50,50,1)"
+    },{
+        "id" : 3,
+        "nom" : "Gertrude",
+        "email" : "las@yahoo.fr",
+        "motDePasse" : "toto",
+        "dateDebutContrat" : 11111111111,
+        "dateFinContrat" : 11111111111,
+        "couleur" : "rgba(50,50,50,1)"
+    },{
+        "id" : 4,
+        "nom" : "Kevin",
+        "email" : "las@yahoo.fr",
+        "motDePasse" : "toto",
+        "dateDebutContrat" : 11111111111,
+        "dateFinContrat" : 11111111111,
+        "couleur" : "rgba(50,50,50,1)"
+    }
+]

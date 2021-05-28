@@ -1,0 +1,48 @@
+<div class="wrapper">
+    <div class="page-header page-header-small">
+        <div class="page-header-image rellax-header" style="background-image: url('assets/img/backgroundLogin.jpg') ;">
+        </div>
+        <div class="content-center">
+            <div class="row">
+                <div class="col-md-8 ml-auto mr-auto text-center">
+                    <h2 class="title">INTRANET</h2>
+                    <h4>Epicerie du port - Sainte Marine</h4>
+                </div>
+            </div>
+        </div>
+    </div>  
+    <div class="main">
+        <div class="container">
+            <div class="section">
+                <div class="main-content">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col text-center mb-3">
+                                <h3 class="mb-0">
+                                    Mon calendrier
+                                </h3>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col text-center" *ngFor = "let etatEvent of listeEtatEvent">
+                                <h4 class="mb-0" [ngStyle]="{'background': etatEvent.couleur}">
+                                    {{etatEvent.title}} : 
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col col-md-offset-1">
+                
+                                <div class="card card-calendar">
+                                    <div class="content">
+                                        <div id="fullCalendar"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>  
+</div>

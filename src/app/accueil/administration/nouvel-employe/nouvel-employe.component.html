@@ -1,0 +1,159 @@
+ <!-- CARD PRODUIT -->
+ <div class="section pb-0 pt-0">
+    <div class="container">
+        
+        <div class="row">
+            <div class="col text-center p-0">
+                <div class="card">
+                    <div class = "iconFermeture" (click) = "fermer()">
+                        <i class="now-ui-icons ui-1_simple-remove"></i>
+                    </div>
+                    <div class="card-body mb-0">
+                        <h4 *ngIf = "employe.id" class="card-title text-center">MODIFICATION EMPLOYE</h4>
+                        <h4 *ngIf = "!employe.id" class="card-title text-center">NOUVEL EMPLOYE</h4>
+                        <form class="form" method="" action="">
+                            <div class="row mt-3">
+                                <div class="col-12 col-md-8 ml-auto mr-auto">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">  <i class="now-ui-icons users_circle-08"></i></span>
+                                        </div>
+                                        
+                                          <input type="text" class="form-control ml-3" 
+                                          placeholder="Nom Prenom" (focus)="focus=true" (blur)="focus=false"
+                                          name = "nomPrenom" [(ngModel)]="employe.nomPrenom">
+                                      </div>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-12 col-md-8 ml-auto mr-auto">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">  <i class="now-ui-icons users_circle-08"></i></span>
+                                        </div>
+                                        
+                                          <input type="text" class="form-control ml-3" 
+                                          placeholder="adresse e-mail" (focus)="focus=true" (blur)="focus=false"
+                                          name = "email" [(ngModel)]="employe.email">
+                                      </div>
+                                </div>
+                            </div>
+                            <div class="row mt-3" *ngIf = "!employe.id">
+                                <div class="col-12 col-md-8 ml-auto mr-auto">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">  <i class="now-ui-icons users_circle-08"></i></span>
+                                        </div>
+                                        
+                                          <input type="text" class="form-control ml-3" 
+                                          placeholder="Mot de passe" (focus)="focus=true" (blur)="focus=false"
+                                          name = "motDePasse" [(ngModel)]="employe.motDePasse">
+                                      </div>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-12 col-md-8 ml-auto mr-auto">
+                                    <p class="mb-0">Debut de contrat</p>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">  <i class="now-ui-icons users_circle-08"></i></span>
+                                        </div>
+                                        
+                                        <input class="form-control datetimepicker"
+                                        name="dateDebutContrat" [(ngModel)]="selectedDateDebutContrat" ngbDatepicker #dateDebutContrat="ngbDatepicker" 
+                                        (click)="dateDebutContrat.toggle()" data-color="orange" (ngModelChange)="selectDateDebutContrat($event)">
+                                      </div>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-12 col-md-8 ml-auto mr-auto">
+                                    <p class="mb-0">Fin de contrat</p>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">  <i class="now-ui-icons users_circle-08"></i></span>
+                                        </div>
+                                        
+                                        <input class="form-control datetimepicker"
+                                        name="dateFinContrat" [(ngModel)]="selectedDateFinContrat" ngbDatepicker #dateFinContrat="ngbDatepicker" 
+                                        (click)="dateFinContrat.toggle()" data-color="orange" (ngModelChange)="selectDateFinContrat($event)">
+                                      </div>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-12 col-md-8 ml-auto mr-auto">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">  <i class="now-ui-icons users_circle-08"></i></span>
+                                        </div>
+                                        
+                                          <input type="number" class="form-control ml-3" 
+                                          placeholder="Durée de travail hebdomadaire" (focus)="focus=true" (blur)="focus=false"
+                                          name = "dureeTravailHebdo" [(ngModel)]="employe.dureeTravailHebdo">
+                                      </div>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-12 col-md-8 ml-auto mr-auto text-center">
+                                    <div class="picker" >
+                                        <app-color-picker [color]="employe.couleur" [heading]="'Background'"
+                                                          (event)="setColor(employe, $event)"></app-color-picker>
+                                    </div>
+                                </div>
+                            </div>
+
+                            
+                            <div class="row border" *ngIf = "listeLogiciel">
+                                <div class="col-12 text-center">
+                                    <h4>Droits Logiciels</h4>
+                                </div>
+                                <div class="col-6 col-md-4 col-lg-3 text-center" *ngFor = "let logiciel of listeLogiciel">
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input class="form-check-input" type="checkbox" [checked] = "isLogicielOn(logiciel)"
+                                            (click) = "ajouterLogicielToEmploye(logiciel)">
+                                            <span class="form-check-sign"></span>
+                                            {{logiciel.titre}}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row" *ngIf = "messageErreur">
+                                <div class="col text-center text-danger">
+                                    {{messageErreur}}
+                                </div>
+                            </div>
+                            
+                            <div class = "card-footer">
+                                
+                                <div class="row">
+                                    <div class = "col text-center">
+
+                                        <button *ngIf = "!requeteEnCours" class="btn btn-warning  btn-round btn-lg"
+                                        (click) = "fermer()">Annuler</button>
+                                        <button *ngIf = "!requeteEnCours" class="btn btn-success  btn-round btn-lg"
+                                        (click) = "postUtilisateur()">Valider</button>
+                                         
+                                        <button *ngIf = "requeteEnCours" class="btn btn-success btn-round" 
+                                                type="button" disabled>
+                                                <span class="spinner-border spinner-border-sm" 
+                                                role="status" 
+                                                aria-hidden="true">
+                                                </span>
+                                        </button>    
+                                    </div>
+                                </div>
+                                
+                            </div> 
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- FIN CARD PRODUIT -->
+<!-- DETAIL PRODUIT -->
+
+<!-- FIN DETAIL PRODUIT -->
+

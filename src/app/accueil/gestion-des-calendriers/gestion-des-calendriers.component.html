@@ -1,0 +1,120 @@
+
+<div class="wrapper">
+    <div class="page-header page-header-small">
+        <div class="page-header-image rellax-header" style="background-image: url('assets/img/backgroundLogin.jpg') ;">
+        </div>
+        <div class="content-center">
+            <div class="row">
+                <div class="col-md-8 ml-auto mr-auto text-center">
+                    <h2 class="title">INTRANET</h2>
+                    <h4>Epicerie du port - Sainte Marine</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="main">
+        <div class="container">
+            <div class="section">
+                <div class="main-content">
+                    <div class="container-fluid">
+                        
+                        <div class="row mb-3">
+                            
+                            <button class="btn btn-primary btnRetour" [routerLink]="['/accueil']">
+                                <i class="now-ui-icons arrows-1_minimal-left"></i>
+                            </button>
+                            <div class="col text-center mb-3">
+                                <h3 class="mb-0">
+                                    Calendrier Commun
+                                </h3>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col text-center" *ngFor = "let utilisateur of listeUtilisateur">
+                                <h4 class="mb-0" [ngStyle]="{'background': utilisateur.couleur}">
+                                    {{utilisateur.nomPrenom}}
+                                </h4>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col text-center" *ngFor = "let etatEvent of listeEtatEvent">
+                                <h4 class="mb-0 border" (click) = "changeEtatEventCourant(etatEvent)"
+                                [ngStyle]="{'background': (etatEvent.id==etatEventCourant.id) ? '#928D8C' : '#ffffff'}">
+                                    {{etatEvent.title}} : 
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col col-md-offset-1">
+                
+                                <div class="card card-calendar">
+                                    <div class="content">
+                                        <div id="fullCalendar"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col text-center">
+                                <h4>Calendrier Individuel</h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col text-center" *ngFor = "let utilisateur of listeUtilisateur"
+                            [ngStyle]="{'border': (utilisateur.id==utilisateurCourant.id) ? 'solid' : '',
+                            'background': (utilisateur.id==utilisateurCourant.id) ? '#928D8C' : '#ffffff'}"
+                            (click) = "changeUtilisateurCourant(utilisateur)">
+                                <h4 class="mb-0">
+                                    {{utilisateur.nomPrenom}} : 
+                                </h4>
+                                <div class="row m-0" *ngIf = "utilisateur.resumeSemaineUtilisateur">
+                                    <h4 class="m-1">
+                                        <span>TRAVAIL :</span> 
+                                        {{utilisateur.resumeSemaineUtilisateur.nbHeureTravail}}</h4>
+                                </div>
+                                <div class="row m-0" *ngIf = "utilisateur.resumeSemaineUtilisateur">
+                                    <h4 class="m-1">
+                                        <span>CONGE :</span>
+                                        {{utilisateur.resumeSemaineUtilisateur.nbHeureConge}}</h4>
+                                </div>
+                                <div class="row m-0" *ngIf = "utilisateur.resumeSemaineUtilisateur">
+                                    <h4 class="m-1">
+                                        <span>FORMATION :</span>
+                                        {{utilisateur.resumeSemaineUtilisateur.nbHeureFormation}}</h4>
+                                </div>
+                                <div class="row m-0" *ngIf = "utilisateur.resumeSemaineUtilisateur">
+                                    <h4 class="m-1">
+                                        <span>ABSCENCE :</span>
+                                        {{utilisateur.resumeSemaineUtilisateur.nbHeureAbscence}}</h4>
+                                </div>
+                                <div class="row m-0" *ngIf = "utilisateur.resumeSemaineUtilisateur">
+                                    <h4 class="m-1">
+                                        <span>SOLDE :</span>
+                                        {{utilisateur.resumeSemaineUtilisateur.soldeEmploye}}</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" >
+                            <div *ngFor = "let etatEvent of listeEtatEvent" class="col text-center">
+                                <h4 [ngStyle]="{'background': etatEvent.couleur}">{{etatEvent.title}}</h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col col-md-offset-1">
+                
+                                <div class="card card-calendar">
+                                    <div class="content">
+                                        <div id="calendarUtilisateur"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>

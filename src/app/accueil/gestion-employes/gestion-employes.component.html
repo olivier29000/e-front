@@ -1,0 +1,262 @@
+<div class="wrapper">
+    <div class="page-header page-header-small">
+        <div class="page-header-image rellax-header" style="background-image: url('assets/img/backgroundLogin.jpg') ;">
+        </div>
+        <div class="content-center">
+            <div class="row">
+                <div class="col-md-8 ml-auto mr-auto text-center">
+                    <h2 class="title">INTRANET</h2>
+                    <h4>Epicerie du port - Sainte Marine</h4>
+                </div>
+            </div>
+        </div>
+    </div>  
+    <div class="container">
+        <div class="main-content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header">
+                                <div class="row">
+                                    <div class="col text-center">
+                                        <div>
+                                            <h4 class="title">
+                                                {{intervalStart}} au {{intervalEnd}}
+                                            </h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="content table-responsive table-full-width">
+                                <table class="table table-hover table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 10%;">employe</th>
+                                            <th style="width: 10%;"  
+                                            *ngFor="let date of listeDateCourantes"
+                                            class="caseSemaineCourante text-center">
+                                                <div *ngIf = "vueCourante == 'month'">
+                                                    Semaine du {{date}}
+                                                </div>
+                                                <div *ngIf = "vueCourante == 'agendaWeek'">
+                                                    {{date}}
+                                                </div>
+                                          </th>
+                                          <th>
+
+                                          </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr 
+                                        *ngFor="let employe of listeEmployes" 
+                                        [ngStyle]="{'border': employe.id == employeCourant.id ? 'solid' : '' }"
+                                        >
+                                            <td  *ngIf = "employeCourant.nom" (click) = "setEmployeCourant(employe)">{{employe.nom}}</td>
+                                            <td *ngFor="let resumeEmploye of employe.listeResumeEmploye;  let index = index;" 
+                                            class="text-center" style="height: 100%;"
+                                            (click) = "setEmployeCourantOrChangeView(employe, index)">
+                                              solde : {{resumeEmploye.soldeEmploye}}
+                                              <div >
+                                                  <div *ngIf = "resumeEmploye.nbHeureTravail > 0">
+                                                      travail :{{resumeEmploye.nbHeureTravail}}
+                                                  </div>
+                                                  <div *ngIf = "resumeEmploye.nbHeureConge > 0">
+                                                      Conge :{{resumeEmploye.nbHeureConge}}
+                                                  </div>
+                                                  <div *ngIf = "resumeEmploye.nbHeureAbscence > 0">
+                                                      Abscence :{{resumeEmploye.nbHeureAbscence}}
+                                                  </div>
+                                                  <div *ngIf = "resumeEmploye.nbHeureFormation > 0">
+                                                      Formation :{{resumeEmploye.nbHeureFormation}}
+                                                  </div>
+                                              </div>
+                                                     
+                                            </td>
+                                            <td class="text-center">
+                                                <bSwitch
+                                                    [(ngModel)]="employe.isActif"
+                                                    (ngModelChange)="changeIsActifEmploye(employe)">
+                                                </bSwitch>
+                                            </td>
+                                        </tr>
+                                        <tr >
+                                            <td>
+                                                <button class="btn btn-primary">
+                                                    Ajouter
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                              </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>  
+                  
+                <div class="row">
+                    <div class="col col-md-offset-1">
+                        <div class="card card-calendar">
+                            <div class="content">
+                                <div id="fullCalendar"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <div class="card">
+                            <div class="row">
+                                <div class="col-6 vertical-center">
+                                    <div class="horizontal-center">
+                                        <h4 *ngIf = "employeCourant">
+                                            Employé sélectionné : {{employeCourant.nom}}
+                                        </h4>
+                                        <p>
+                                            Copier la semaine du 
+                                        </p>
+                                        <input class="form-control datetimepicker text-center"
+                                                name="dp" [(ngModel)]="dateCopieSemaine" 
+                                                ngbDatepicker #d="ngbDatepicker" 
+                                                (click)="d.toggle()" data-color="orange">
+                                        <div class="mt-3" *ngIf = "listeEmployes && listeEmployes.length > 0 && listeEmployes[0].listeResumeEmploye">
+                                            <div *ngIf = "listeEmployes[0].listeResumeEmploye[0].nbHeureTravail > 0">
+                                                travail :{{listeEmployes[0].listeResumeEmploye[0].nbHeureTravail}}
+                                            </div>
+                                            <div *ngIf = "listeEmployes[0].listeResumeEmploye[0].nbHeureConge > 0">
+                                                congés :{{listeEmployes[0].listeResumeEmploye[0].nbHeureConge}}
+                                            </div>
+                                            <div *ngIf = "listeEmployes[0].listeResumeEmploye[0].nbHeureAbscence > 0">
+                                                abscence :{{listeEmployes[0].listeResumeEmploye[0].nbHeureAbscence}}
+                                            </div>
+                                            <div *ngIf = "listeEmployes[0].listeResumeEmploye[0].nbHeureFormation > 0">
+                                                formation :{{listeEmployes[0].listeResumeEmploye[0].nbHeureFormation}}
+                                            </div>
+                                        </div>  
+                                        <button class="btn btn-success">
+                                            Valider la copie
+                                        </button>        
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="row">
+                                        <div class="col col-md-offset-1">
+                                            <div class="card card-calendar mt-3">
+                                                <div class="content">
+                                                    <div id="smallCalendar"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="content table-responsive table-full-width">
+                                <table class="table table-hover table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 10%;">employe</th>
+                                            <th class="text-center">
+                                                e-mail
+                                          </th>
+                                            <th class="text-center">
+                                                mot de passe
+                                        </th>
+                                          <th>
+                                            date de début de contrat
+                                          </th>
+                                          <th>
+                                            date de fin de contrat
+                                          </th>
+                                          <th>
+                                            couleur
+                                          </th>
+                                          <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let employeObjet of listeEmployeObjet" >
+                                            <td>
+                                               <p *ngIf = "!isModifEmployeObjet(employeObjet.id)">{{employeObjet.nom}}</p> 
+                                               <p *ngIf = "isModifEmployeObjet(employeObjet.id)">
+                                                    <input class="inputModif" name = "nom" [(ngModel)] = "employeObjet.nom" type="text">
+                                               </p> 
+                                            </td>
+                                            <td>
+                                                <p *ngIf = "!isModifEmployeObjet(employeObjet.id)">{{employeObjet.email}}</p> 
+                                                <p *ngIf = "isModifEmployeObjet(employeObjet.id)">
+                                                    <input class="inputModif" name = "email" [(ngModel)] = "employeObjet.email" type="text">
+                                               </p> 
+                                            </td>
+                                            <td>
+                                                <p *ngIf = "!isModifEmployeObjet(employeObjet.id)">{{employeObjet.motDePasse}}</p> 
+                                                <p *ngIf = "isModifEmployeObjet(employeObjet.id)">
+                                                    <input class="inputModif" name = "motDePasse" [(ngModel)] = "employeObjet.motDePasse" type="text">
+                                               </p> 
+                                            </td>
+                                            <td>
+                                                <p *ngIf = "!isModifEmployeObjet(employeObjet.id)">{{employeObjet.dateDebutContrat}}</p> 
+                                                <p *ngIf = "isModifEmployeObjet(employeObjet.id)">
+                                                    <input class="inputModif" name = "dateDebutContrat" [(ngModel)] = "employeObjet.dateDebutContrat" type="text">
+                                               </p> 
+                                            </td>
+                                            <td>
+                                                <p *ngIf = "!isModifEmployeObjet(employeObjet.id)">{{employeObjet.dateFinContrat}}</p> 
+                                                <p *ngIf = "isModifEmployeObjet(employeObjet.id)">
+                                                    <input class="inputModif" name = "dateFinContrat" [(ngModel)] = "employeObjet.dateFinContrat" type="text">
+                                               </p> 
+                                            </td>
+                                            <td>
+                                                <div class="picker" *ngIf = "!isModifEmployeObjet(employeObjet.id)">
+                                                    <div class="color-picker">
+                                                        <div class="summary-info">
+                                                          <div class="circle" [ngStyle]="{'background': employeObjet.couleur}"></div>
+                                                        </div>
+                                                      </div>
+                                                </div>
+                                                
+                                                <div class="picker"  *ngIf = "isModifEmployeObjet(employeObjet.id)">
+                                                    <app-color-picker [color]="employeObjet.couleur" [heading]="'Background'"
+                                                                      (event)="setColor(employeObjet, $event)"></app-color-picker>
+                                                </div>
+                                            </td>
+                                            <td class="text-center">
+                                                <button *ngIf = "!isModifEmployeObjet(employeObjet.id)" (click) = "modifEmployeObjet(employeObjet.id)" class="btn btn-info">
+                                                    Modifier
+                                                </button>
+                                                        <button *ngIf = "isModifEmployeObjet(employeObjet.id)" class="btn btn-success">
+                                                            Valider
+                                                        </button>
+                                                        <button *ngIf = "isModifEmployeObjet(employeObjet.id)" (click) = "modifEmployeObjet(employeObjet.id)" class="btn btn-warning">
+                                                            Annuler
+                                                        </button>
+                                            </td>
+                                        </tr>
+                                        <tr >
+                                            <td>
+                                                <button class="btn btn-primary">
+                                                    Ajouter
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                              </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>  
+            </div>
+        </div>
+    </div>
+    
+</div>

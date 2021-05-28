@@ -1,0 +1,61 @@
+<div class="section">
+    <div class="container">
+        <div type="button" class = "iconFermeture" (click)="closeModal()">
+            <i class="now-ui-icons ui-1_simple-remove"></i>
+        </div>
+        <div class="row">
+            <div class="col text-center">
+                {{nomEmploye}} - {{dateCouranteString}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col text-center">
+
+                <button class="btn" 
+                style="background-color : rgba(68, 125, 247, 0.6)" 
+                [ngStyle]="{'border': (evenement.title=='TRAVAIL') ? 'solid black' : ''}"
+                (click) = "selectTitle('TRAVAIL')">TRAVAIL</button>
+
+                <button class="btn" 
+                style="background-color : rgba(35, 204, 239, 0.2)" 
+                [ngStyle]="{'border': (evenement.title=='CONGE') ? 'solid black' : ''}"
+                (click) = "selectTitle('CONGE')">CONGE</button>
+
+                <button class="btn" 
+                style="background-color : rgba(135, 203, 22, 0.2)" 
+                [ngStyle]="{'border': (evenement.title=='FORMATION') ? 'solid black' : ''}"
+                (click) = "selectTitle('FORMATION')">FORMATION</button>
+
+                <button class="btn" 
+                style="background-color : rgba(251, 64, 75, 0.2)" 
+                [ngStyle]="{'border': (evenement.title=='ABSCENCE') ? 'solid black' : ''}"
+                (click) = "selectTitle('ABSCENCE')">ABSCENCE</button>
+            
+            </div>
+        </div>
+        <div class="row ml-3 mr-3">
+            <div class="col-6 text-center">
+                <h4>
+                    Heure de début
+                </h4>
+                <div ngbDropdown class="dropdown" >
+                    <button class="btn btn-default btn-round dropdown-toggle" ngbDropdownToggle>{{heureStart != undefined ? heureStart : 7}}</button>
+                    <div ngbDropdownMenu>
+                      <a *ngFor = "let heure of listeHeureDispo"  class="dropdown-item" (click) = "selectHeureStart(heure)">{{heure}}</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 text-center">
+                <h4>
+                    Heure de fin
+                </h4>
+                <div ngbDropdown class="dropdown" >
+                    <button class="btn btn-default btn-round dropdown-toggle" ngbDropdownToggle>{{heureEnd != undefined ? heureEnd : 18}}</button>
+                    <div ngbDropdownMenu>
+                      <a *ngFor = "let heure of listeHeureDispo"  class="dropdown-item" (click) = "selectHeureEnd(heure)">{{heure}}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

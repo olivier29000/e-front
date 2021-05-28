@@ -1,0 +1,39 @@
+.btn-group{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.now-ui-icons {
+    display: inline-block;
+    font: normal normal normal 32px/1 'Nucleo Outline';
+    speak: none;
+    text-transform: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.picker{
+    height: 100%;
+}
+
+.iconFermeture{
+    position: absolute;
+    margin: 1vh;
+    right: 0;
+    top: 0;
+    z-index: 1000;
+}
+
+textarea.form-control{
+    border-top: 1px solid #E3E3E3;
+    border-right: 1px solid #E3E3E3;
+    border-radius: 30px;
+}
+
+textarea.form-control:focus{
+    border: 1px solid #f96332;
+}
+
+.form-control{
+    border-left: none;
+}
