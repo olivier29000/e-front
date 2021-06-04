@@ -1,0 +1,92 @@
+<div class="section">
+    <div class="container">
+        <div type="button" class = "iconFermeture" (click)="closeModal()">
+            <i class="now-ui-icons ui-1_simple-remove"></i>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-contact card-raised">
+                    <form role="form" id="contact-form" method="post">
+                        <div class="card-header text-center">
+                            <h4 class="card-title">Creation d'un fournisseur</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col text-center">
+                                    <label>Entreprise</label>
+                                    <div class="input-group" >
+                                        <input type="text" class="form-control"
+                                        name="entreprise" placeholder="Entreprise" 
+                                        [(ngModel)] = "fournisseur.entreprise">
+                                    </div>
+                                    <div *ngIf="errorEntreprise" class="alert alert-danger">
+                                        {{errorEntreprise}}
+                                    </div>
+                                </div>
+                                <div class="col text-center">
+                                    <label>Nom</label>
+                                    <div class="input-group" >
+                                        <input type="text" class="form-control"
+                                        name="nom" placeholder="Nom" 
+                                        [(ngModel)] = "fournisseur.nomPrenom">
+                                    </div>
+                                    <div *ngIf="errorNom" class="alert alert-danger">
+                                        {{errorNom}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col text-center">
+                                    <label>Telephone</label>
+                                    <div class="input-group" >
+                                        <input type="text" class="form-control"
+                                        name="telephone" placeholder="Entreprise" 
+                                        [(ngModel)] = "fournisseur.telephone">
+                                    </div>
+                                    <div *ngIf="errorTelephone" class="alert alert-danger">
+                                        {{errorTelephone}}
+                                    </div>
+                                </div>
+                                <div class="col text-center">
+                                    <label>Email</label>
+                                    <div class="input-group" >
+                                        <input type="text" class="form-control"
+                                        name="email" placeholder="email" 
+                                        [(ngModel)] = "fournisseur.email">
+                                    </div>
+                                    <div *ngIf="errorEmail" class="alert alert-danger">
+                                        {{errorEmail}}
+                                    </div>
+                                </div>
+                                <div class="col text-center">
+                                    <label>Code-Client</label>
+                                    <div class="input-group" >
+                                        <input type="text" class="form-control"
+                                        name="codeClient" placeholder="Code-Client" 
+                                        [(ngModel)] = "fournisseur.codeClient">
+                                    </div>
+                                    <div *ngIf="errorCodeClient" class="alert alert-danger">
+                                        {{errorCodeClient}}
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            
+                            <div class="row">
+                                <div class="col text-center">
+                                    <button type="submit" class="btn btn-primary btn-round pull-right"
+                                    (click) = "validerFournisseur()">Valider le fournisseur</button>
+                                </div>
+                                <div *ngIf="errorPostFournisseur" class="alert alert-danger">
+                                    {{errorPostFournisseur}}
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </form>
+                </div>
+        </div>
+    </div>
+
+</div>
+</div>

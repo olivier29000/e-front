@@ -1,0 +1,58 @@
+<div class="table-responsive main">
+    <table class="table table-shopping mt-3">
+        <thead class="mt-3">
+            <tr>
+                <th  *ngFor = "let emplacementVitrine of listeEmplacementVitrine" 
+                class="text-center"  style="width: 15%;"><h3>{{emplacementVitrine.titreEmplacementVitrine}}</h3></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr  *ngIf = "!listeEtiquetteFromage || !listeEtiquetteSalades || !listeEtiquettePatisseries || !listeEtiquettePlatsPrepares || !listeEtiquetteBoucherie || !listeEtiquetteCharcuterie">
+                <td class="text-center">
+                    <span  *ngIf = "!listeEtiquetteFromage" class="spinner-border spinner-border-sm" 
+                    role="status" 
+                    aria-hidden="true"></span>
+                </td>
+                <td class="text-center">
+                    <span *ngIf = "!listeEtiquetteSalades" class="spinner-border spinner-border-sm" 
+                    role="status" 
+                    aria-hidden="true"></span>
+                </td>
+                <td class="text-center">
+                    <span *ngIf = "!listeEtiquettePatisseries" class="spinner-border spinner-border-sm" 
+                    role="status" 
+                    aria-hidden="true"></span>
+                </td>
+                <td class="text-center">
+                    <span *ngIf = "!listeEtiquettePlatsPrepares" class="spinner-border spinner-border-sm" 
+                    role="status" 
+                    aria-hidden="true"></span>
+                </td>
+                <td class="text-center">
+                    <span *ngIf = "!listeEtiquetteBoucherie" class="spinner-border spinner-border-sm" 
+                    role="status" 
+                    aria-hidden="true"></span>
+                </td>
+                <td class="text-center">
+                    <span *ngIf = "!listeEtiquetteCharcuterie" class="spinner-border spinner-border-sm" 
+                    role="status" 
+                    aria-hidden="true"></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-center" *ngFor = "let emplacementVitrine of listeEmplacementVitrine" >
+                    <div *ngFor = "let etiquette of emplacementVitrine.listeEtiquette" 
+                    class="etiquette border"
+                    [ngStyle]="{'background-color': getColorByDate(etiquette)}"
+                    (click) = "openModalEtiquette(etiquette)">
+                        {{etiquette.produitTraiteur.nom}} 
+                        <br>
+                        {{getDateString(etiquette.dateFermeturePrevu)}} 
+                    </div>
+                </td>
+            </tr>
+            
+        </tbody>
+    </table>
+    
+</div>

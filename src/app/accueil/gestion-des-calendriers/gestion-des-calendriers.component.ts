@@ -1,7 +1,8 @@
 import { Component, ComponentFactoryResolver, OnInit } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCalendar, NgbDateStruct, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import EtatEvent from 'app/models/calendar/EtatEvent';
 import EventDto from 'app/models/calendar/EventDto';
+import EventPost from 'app/models/calendar/EventPost';
 import Utilisateur from 'app/models/Utilisateur';
 import { CalendarService } from 'app/services/calendar.service';
 import { UtilisateurService } from 'app/services/utilisateur.service';
@@ -35,12 +36,19 @@ export class GestionDesCalendriersComponent implements OnInit {
   intervalStart : number = 0;
 
   intervalEnd : number = 0;
+  
+  selectedDateJourCopie: NgbDateStruct = undefined;
+  
+  erreurCopie = ""
 
   constructor(
     public modalService: NgbModal,
+    private calendar: NgbCalendar,
     private calendarService : CalendarService,
     private utilisateurService : UtilisateurService,
-    private utilsService : UtilsService) { }
+    private utilsService : UtilsService) {
+      this.selectedDateJourCopie = calendar.getToday()
+     }
 
   ngOnInit(): void {
    
@@ -90,32 +98,7 @@ export class GestionDesCalendriersComponent implements OnInit {
                     titleFormat: 'D MMM, YYYY'
                   }
                 },
-        
-              select: function(start, end) {
-                // on select we show the Sweet Alert modal with an input
-                swal.fire({
-                    title: 'Create an Event',
-                    html: '<br><input class="form-control" placeholder="Event Title" id="input-field">',
-                    customClass:{
-                      confirmButton: "btn btn-fill btn-success"
-                    }
-                }).then((result) => {
-                    var eventData;
-                    var event_title = $('#input-field').val();
-        
-                    if (event_title) {
-                      eventData = {
-                        title: event_title,
-                        start: start,
-                        end: end
-                      };
-                      $calendar.fullCalendar('renderEvent', eventData, true); // stick? = true
-                    }
-                    $calendar.fullCalendar('unselect');
-        
-                })
-              },
-              editable: true,
+              editable: false,
               eventLimit: true, // allow "more" link when too many events
                     // color classes: [ event-blue | event-azure | event-green | event-orange | event-red ]
               events: this.listeEventAllUtilisateur
@@ -179,6 +162,20 @@ export class GestionDesCalendriersComponent implements OnInit {
                 event.end = end.valueOf()
                 this.nouvelEvent(event)
               },
+              eventResize: (event) => {
+                let eventPost = {} as EventPost
+                eventPost.id = event.id
+                eventPost.start = event.start.valueOf()
+                eventPost.end = event.end.valueOf()
+                this.modifEvent(eventPost)
+              },
+              eventDrop: (event) => {
+                let eventPost = {} as EventPost
+                eventPost.id = event.id
+                eventPost.start = event.start.valueOf()
+                eventPost.end = event.end.valueOf()
+                this.modifEvent(eventPost)
+              },
               eventClick:(info) =>  {
                 console.log(info)
                 swal.fire({
@@ -211,6 +208,28 @@ export class GestionDesCalendriersComponent implements OnInit {
     
   }
 
+  selectDateJourCopie(newDate){
+    this.selectedDateJourCopie = newDate
+    console.log(this.selectedDateJourCopie)
+    console.log(new Date(newDate.year, newDate.month - 1, newDate.day).getTime())
+    
+  }
+
+  validerCopieSemaine(){
+    this.erreurCopie = ""
+    this.calendarService.copieSemaineByIdUtilisateur(
+      new Date(this.selectedDateJourCopie.year, this.selectedDateJourCopie.month - 1, this.selectedDateJourCopie.day).getTime(),
+      this.intervalStart,
+       this.utilisateurCourant.id).subscribe(
+         res => {
+          this.changeListeEventsUtilisateurCourant()
+          this.changeListeEventsAllUtilisateur()
+          this.changeListeResumeSemaineUtilisateur()
+         },
+         err => this.erreurCopie = "il y a eu un problème lors de la copie"
+       )
+  }
+
   changeView(start : string){
     $('#calendarUtilisateur').fullCalendar('changeView', 'agendaWeek', start);
     $('#fullCalendar').fullCalendar('changeView', 'agendaWeek', start);
@@ -233,6 +252,18 @@ export class GestionDesCalendriersComponent implements OnInit {
       err => err
     )
   }
+
+  modifEvent(eventPost : EventPost){
+    this.calendarService.postEventByIdUtilisateur(eventPost, this.utilisateurCourant.id).subscribe(
+      res => {
+        this.changeListeEventsUtilisateurCourant()
+        this.changeListeEventsAllUtilisateur()
+        this.changeListeResumeSemaineUtilisateur()
+      },
+      err => err
+    )
+  }
+
 
   nouvelEvent(event : EventDto){
     const modalRef = this.modalService.open(NouvelEventComponent, { centered: true,size: 'lg', backdrop: 'static' });

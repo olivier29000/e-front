@@ -25,4 +25,8 @@ export class PanneauAffichageService {
   postImage(image : Image){
     return this.http.post<Image>(`${backendUrl}/postImage`,image, { withCredentials: true });
   }
+
+  deleteById(idImage : number) : Observable<void>{
+    return this.http.get<void>(`${backendUrl}/deleteById/${idImage}`, { withCredentials: true });
+  }
 }

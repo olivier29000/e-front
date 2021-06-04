@@ -23,9 +23,9 @@ export class CalendarService {
     return this.http.get<ResumeSemaineUtilisateur>(`${URL_BACKEND}/getResumeSemaineUtilisateur/${idUtilisateur}/${intervalStart}/${internalEnd}`, { withCredentials: true });
   }
   
-  getAllEventByUtilisateur() : Observable<EventDto[]>{
+  getAllEventByUtilisateur(intervalStart : number, internalEnd : number) : Observable<EventDto[]>{
 
-    return this.http.get<EventDto[]>(`${URL_BACKEND}/getAllEventByUtilisateur`, { withCredentials: true });
+    return this.http.get<EventDto[]>(`${URL_BACKEND}/getAllEventByUtilisateur/${intervalStart}/${internalEnd}`, { withCredentials: true });
   }
 
   getAllEventByUtilisateurForGestionCalendrier(idUtilisateur : number, intervalStart : number, internalEnd : number) : Observable<EventDto[]>{
@@ -54,5 +54,9 @@ export class CalendarService {
 
   deleteEventById(idEvent : number){
     return this.http.get<void>(`${URL_BACKEND}/deleteEventById/${idEvent}` , { withCredentials: true });
+  }
+
+  copieSemaineByIdUtilisateur(dateMillisecondsToCopy : number,dateMillisecondsWhereCopy : number, idUtilisateur : number) : Observable<void>{
+    return this.http.get<void>(`${URL_BACKEND}/copieSemaineByIdUtilisateur/${dateMillisecondsToCopy}/${dateMillisecondsWhereCopy}/${idUtilisateur}` , { withCredentials: true });
   }
 }

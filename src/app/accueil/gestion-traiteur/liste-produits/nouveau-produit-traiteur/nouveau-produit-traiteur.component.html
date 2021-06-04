@@ -1,0 +1,172 @@
+<div class="section">
+    <div class="container">
+        <div type="button" class = "iconFermeture" (click)="closeModal()">
+            <i class="now-ui-icons ui-1_simple-remove"></i>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-contact card-raised">
+                    <form role="form" id="contact-form" method="post">
+                        <div class="card-header text-center">
+                            <h4 class="card-title">Creation d'un produit</h4>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col text-center">
+                                    <div ngbDropdown class="btn btn-default" ngbDropdownToggle>
+                                        <button class="btn" >Fournisseur</button>
+                                        <div ngbDropdownMenu>
+                                            <a *ngFor = "let fournisseur of listeFournisseur" 
+                                            class="dropdown-item" 
+                                            (click)="selectFournisseur(fournisseur)">
+                                                {{fournisseur.entreprise}}--{{fournisseur.nomPrenom}}
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="row" *ngIf = "produitCourant && produitCourant.fournisseur">
+                                        <div class="col text-center">
+                                            <p>FOURNISSEUR : {{produitCourant.fournisseur.entreprise}}--{{produitCourant.fournisseur.nomPrenom}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col text-center">
+                                    <label>Categorie</label>
+                                    <div class="input-group" >
+                                        <input type="text" class="form-control"
+                                        name="categorie" placeholder="Categorie"
+                                         [(ngModel)] = "produitCourant.categorie">
+                                    </div>
+                                </div>
+                                <div class="col text-center">
+                                    <label>Reference</label>
+                                    <div class="input-group" >
+                                        <input type="text" class="form-control"
+                                        name="reference" placeholder="Reference" 
+                                        [(ngModel)] = "produitCourant.reference">
+                                    </div>
+                                </div>
+                                <div class="col text-center">
+                                    <label>Nom</label>
+                                    <div class="input-group" >
+                                        <input type="text" class="form-control"
+                                        name="nom" placeholder="Nom"
+                                        [(ngModel)] = "produitCourant.nom" >
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row" *ngIf = "produitCourant.image.picByte">
+                                <div class="col text-center">
+                                    <div class="fileinput text-center" #input>
+                                        <div [ngClass]="{'img-circle':isRound}" class="thumbnail img-raised">
+                                            <img src="{{'data:image/jpg;base64,' + produitCourant.image.picByte}}" alt="..." />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" *ngIf = "!produitCourant.image.picByte">
+                                <div class="col text-center">
+                                    <div class="fileinput text-center" #input style="display: block;">
+                                        <div [ngClass]="{'img-circle':isRound}" class="thumbnail img-raised">
+                                            <img src="assets/img/image_placeholder.jpg" alt="..." />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row d-flex align-items-center sectionEtiquette">
+                                <div class="col text-center">
+                                    <input class="btn btn-raised btn-round btn-default btn-file" 
+                                    type="file" capture="camera" accept="image/*" 
+                                    id="cameraInput" name="cameraInput" (change)="changeImageProduit($event)">
+                                </div>
+                            </div>
+
+                            <div class="row border">
+                                <div class="col text-center">
+                                    <h5>
+                                        Allergènes
+                                    </h5>
+                                    <div class="" *ngIf = "listeDesAllergenesDisponibles">
+                                        <img *ngFor = "let allergene of listeDesAllergenesDisponibles" 
+                                        src={{allergene.urlImage}} 
+                                        class = "iconAllergene" 
+                                        alt=""
+                                        [ngStyle] ="{'border': allergeneIsSelected(allergene)?'solid':''}"
+                                        (click) = "selectAllergene(allergene)">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row border">
+                                <div class="col text-center">
+                                    Prix d'achat :
+                                    <h4 class="mt-1" style="display: flex;">
+                                        <input type="text" placeholder="*****"
+                                        name = "prixAchat"
+                                        [(ngModel)]="produitCourant.prixAchat" >
+                                    </h4>
+            
+                                </div>
+                                <div class="col text-center">
+                                    Prix de vente :
+                                    <h4 class="mt-1">
+                                        <input type="text" placeholder="*****"
+                                        name = "prixVente"
+                                        [(ngModel)]="produitCourant.prixVente" >
+                                    </h4>
+                                </div>
+                                <div class="col-2 text-center">
+                                </div>
+                            </div>
+                            <div class="row border emplacementVitrine">
+                            
+                                <div class="col" style="border: thin solid;" (click) = "selectEmplacementVitrine('FROMAGES')"
+                                [ngStyle] ="{'background-color': produitCourant.emplacementVitrine == 'FROMAGES'?'red':''}">
+                                    FROMAGES
+                                </div>
+                                <div class="col" style="border: thin solid;" (click) = "selectEmplacementVitrine('SALADES')"
+                                [ngStyle] ="{'background-color': produitCourant.emplacementVitrine == 'SALADES'?'red':''}">
+                                    SALADES
+                                </div>
+                                <div class="col" style="border: thin solid;" (click) = "selectEmplacementVitrine('PATISSERIES')"
+                                [ngStyle] ="{'background-color': produitCourant.emplacementVitrine == 'PATISSERIES'?'red':''}">
+                                    PATISSERIES
+                                </div>
+                                <div class="col" style="border: thin solid;" (click) = "selectEmplacementVitrine('PLATS_PREPARES')"
+                                [ngStyle] ="{'background-color': produitCourant.emplacementVitrine == 'PLATS_PREPARES'?'red':''}">
+                                    PLATS_PRÉPARÉS
+                                </div>
+                                <div class="col" style="border: thin solid;" (click) = "selectEmplacementVitrine('BOUCHERIE')"
+                                [ngStyle] ="{'background-color': produitCourant.emplacementVitrine == 'BOUCHERIE'?'red':''}">
+                                    BOUCHERIE
+                                </div>
+                                <div class="col" style="border: thin solid;" (click) = "selectEmplacementVitrine('CHARCUTERIE')"
+                                [ngStyle] ="{'background-color': produitCourant.emplacementVitrine == 'CHARCUTERIE'?'red':''}">
+                                    CHARCUTERIE
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div style="margin-left: auto;margin-right: auto;" >
+                                    <button *ngIf = "!requeteEnCours" type="submit" class="btn btn-primary btn-round pull-right"
+                                    (click) = "postProduitTraiteur()">
+                                        Valider le produit</button>
+                                    <button *ngIf = "requeteEnCours" 
+                                    class="btn btn-primary btn-round pull-right" 
+                                    type="button" disabled>
+                                        <span class="spinner-border spinner-border-sm" 
+                                        role="status" 
+                                        aria-hidden="true"></span>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </form>
+                </div>
+        </div>
+    </div>
+
+</div>
+</div>

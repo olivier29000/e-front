@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import Employe from 'app/models/Employe';
 import EmployeObjet from 'app/models/EmployeObjet';
 import EvenementEmploye from 'app/models/EvenementEmploye';
-import ResumeEmploye from 'app/models/SemaineEmploye';
-import SemaineEmploye from 'app/models/SemaineEmploye';
+import ResumeEmploye from 'app/models/ResumeSemaineUtilisateur';
+import SemaineEmploye from 'app/models/ResumeSemaineUtilisateur';
 import { Observable } from 'rxjs';
 
 @Injectable({

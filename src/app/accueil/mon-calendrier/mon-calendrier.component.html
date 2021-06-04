@@ -16,14 +16,18 @@
             <div class="section">
                 <div class="main-content">
                     <div class="container-fluid">
-                        <div class="row">
+                        <div class="row mb-3">
+                            
+                            <button class="btn btn-primary btnRetour" [routerLink]="['/accueil']">
+                                <i class="now-ui-icons arrows-1_minimal-left"></i>
+                            </button>
                             <div class="col text-center mb-3">
                                 <h3 class="mb-0">
-                                    Mon calendrier
+                                    Voici votre calendrier {{utilisateurConnecte.nomPrenom}}
                                 </h3>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row mt-3">
                             <div class="col text-center" *ngFor = "let etatEvent of listeEtatEvent">
                                 <h4 class="mb-0" [ngStyle]="{'background': etatEvent.couleur}">
                                     {{etatEvent.title}} : 

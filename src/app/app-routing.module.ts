@@ -3,7 +3,9 @@ import { Routes, RouterModule } from '@angular/router';
 import { AccueilComponent } from './accueil/accueil.component';
 import { AdministrationComponent } from './accueil/administration/administration.component';
 import { GestionDesCalendriersComponent } from './accueil/gestion-des-calendriers/gestion-des-calendriers.component';
+import { GestionFournisseursComponent } from './accueil/gestion-fournisseurs/gestion-fournisseurs.component';
 import { GestionPanneauAffichageComponent } from './accueil/gestion-panneau-affichage/gestion-panneau-affichage.component';
+import { GestionTraiteurComponent } from './accueil/gestion-traiteur/gestion-traiteur.component';
 import { MonCalendrierComponent } from './accueil/mon-calendrier/mon-calendrier.component';
 import { LoginComponent } from './login/login.component';
 import { PanneauAffichageComponent } from './panneau-affichage/panneau-affichage.component';
@@ -57,6 +59,26 @@ const routes: Routes = [
     ],
     data : {
       url : 'gestion-panneau-affichage'
+    }
+  },
+  {
+    path: '',
+    canActivate: [ConnexionGuardService],
+    children: [
+      { path: 'accueil/gestion-fournisseurs', component: GestionFournisseursComponent }
+    ],
+    data : {
+      url : 'gestion-fournisseurs'
+    }
+  },
+  {
+    path: '',
+    canActivate: [ConnexionGuardService],
+    children: [
+      { path: 'accueil/gestion-traiteur', component: GestionTraiteurComponent }
+    ],
+    data : {
+      url : 'gestion-traiteur'
     }
   }
   

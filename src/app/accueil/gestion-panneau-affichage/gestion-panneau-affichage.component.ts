@@ -76,11 +76,25 @@ export class GestionPanneauAffichageComponent implements OnInit {
       cancelButtonText: "Annuler",
       confirmButtonText: 'Oui'
     }).then((result) => {
+      
       if (result.isConfirmed) {
-        Swal.fire(
-          'Deleted!',
-          'Your file has been deleted.',
-          'success'
+        this.panneauAffichageService.deleteById(image.id).subscribe(
+          res => {
+            Swal.fire(
+            'Supprimé!',
+            'L\'image a été supprimée.',
+            'success'
+          )
+          this.initialisation()
+        },
+          err => {
+            Swal.fire(
+            'Mince!',
+            'L\'image n\'a pas été supprimée, il y a eu un problème.',
+            'error'
+            )
+          this.initialisation()
+          }
         )
       }
     })

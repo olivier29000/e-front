@@ -1,0 +1,79 @@
+<div class="section">
+    <div class="container">
+        <div type="button" class = "iconFermeture" (click)="closeModal()">
+            <i class="now-ui-icons ui-1_simple-remove"></i>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-contact card-raised">
+                    <form role="form" id="contact-form" method="post">
+                        <div class="card-header text-center">
+                            <h4 class="card-title">Creation d'un produit</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col text-center">
+                                    <label>Categorie</label>
+                                    <div class="input-group" >
+                                        <input type="text" class="form-control"
+                                        name="categorie" placeholder="Categorie" 
+                                        [(ngModel)] = "produit.categorie">
+                                    </div>
+                                    <div *ngIf="errorCategorie" class="alert alert-danger">
+                                        {{errorCategorie}}
+                                    </div>
+                                </div>
+                                <div class="col text-center">
+                                    <label>Reference</label>
+                                    <div class="input-group" >
+                                        <input type="text" class="form-control"
+                                        name="reference" placeholder="Reference" 
+                                        [(ngModel)] = "produit.reference">
+                                    </div>
+                                    <div *ngIf="errorReference" class="alert alert-danger">
+                                        {{errorReference}}
+                                    </div>
+                                </div>
+                                <div class="col text-center">
+                                    <label>Nom</label>
+                                    <div class="input-group" >
+                                        <input type="text" class="form-control"
+                                        name="nom" placeholder="Nom" 
+                                        [(ngModel)] = "produit.nom">
+                                    </div>
+                                    <div *ngIf="errorNom" class="alert alert-danger">
+                                        {{errorNom}}
+                                    </div>
+                                </div>
+                                <div class="col text-center">
+                                    <label>Nombre de produits par lots</label>
+                                    <div class="input-group" >
+                                        <input type="number" class="form-control"
+                                        name="nbProduitParLot" placeholder="Nombre de produits par lot" 
+                                        [(ngModel)] = "produit.nbUniteParLot">
+                                    </div>
+                                    <div *ngIf="errorNbProduitParLot" class="alert alert-danger">
+                                        {{errorNbProduitParLot}}
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            
+                            <div class="row">
+                                <div class="col text-center">
+                                    <button type="submit" class="btn btn-primary btn-round pull-right"
+                                    (click) = "validerProduit()">Valider le produit</button>
+                                </div>
+                                <div *ngIf="errorPostProduit" class="alert alert-danger">
+                                    {{errorPostProduit}}
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </form>
+                </div>
+        </div>
+    </div>
+
+</div>
+</div>

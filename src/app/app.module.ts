@@ -21,7 +21,17 @@ import { NouvelEventComponent } from './accueil/gestion-des-calendriers/nouvel-e
 import {NgxImageCompressService} from 'ngx-image-compress';
 import { GestionPanneauAffichageComponent } from './accueil/gestion-panneau-affichage/gestion-panneau-affichage.component';
 import { PanneauAffichageComponent } from './panneau-affichage/panneau-affichage.component';
-
+import { GestionFournisseursComponent } from './accueil/gestion-fournisseurs/gestion-fournisseurs.component';
+import { NouveauFournisseurComponent } from './accueil/gestion-fournisseurs/nouveau-fournisseur/nouveau-fournisseur.component';
+import { NouveauProduitComponent } from './accueil/gestion-fournisseurs/nouveau-produit/nouveau-produit.component';
+import { ModalMailComponent } from './accueil/gestion-fournisseurs/modal-mail/modal-mail.component';
+import { GestionTraiteurComponent } from './accueil/gestion-traiteur/gestion-traiteur.component';
+import { ListeProduitsComponent } from './accueil/gestion-traiteur/liste-produits/liste-produits.component';
+import { ListeEtiquettesComponent } from './accueil/gestion-traiteur/liste-etiquettes/liste-etiquettes.component';
+import { VitrineComponent } from './accueil/gestion-traiteur/vitrine/vitrine.component';
+import { CahierComponent } from './accueil/gestion-traiteur/cahier/cahier.component';
+import { NouveauProduitTraiteurComponent } from './accueil/gestion-traiteur/liste-produits/nouveau-produit-traiteur/nouveau-produit-traiteur.component';
+import { NouvelleEtiquetteComponent } from './accueil/gestion-traiteur/nouvelle-etiquette/nouvelle-etiquette.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +46,18 @@ import { PanneauAffichageComponent } from './panneau-affichage/panneau-affichage
     NouvelEventComponent,
     GestionDesCalendriersComponent,
     GestionPanneauAffichageComponent,
-    PanneauAffichageComponent
+    PanneauAffichageComponent,
+    GestionFournisseursComponent,
+    NouveauFournisseurComponent,
+    NouveauProduitComponent,
+    ModalMailComponent,
+    GestionTraiteurComponent,
+    ListeProduitsComponent,
+    ListeEtiquettesComponent,
+    VitrineComponent,
+    CahierComponent,
+    NouveauProduitTraiteurComponent,
+    NouvelleEtiquetteComponent
   ],
   imports: [
     FormsModule,

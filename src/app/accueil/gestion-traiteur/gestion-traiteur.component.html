@@ -1,0 +1,75 @@
+<div class="wrapper">
+    <div class="page-header page-header-small">
+        <div class="page-header-image rellax-header" style="background-image: url('assets/img/backgroundLogin.jpg') ;">
+        </div>
+        <div class="content-center">
+            <div class="row">
+                <div class="col-md-8 ml-auto mr-auto text-center">
+                    <h2 class="title">INTRANET</h2>
+                    <h4>Epicerie du port - Sainte Marine</h4>
+                </div>
+            </div>
+        </div>
+    </div>  
+    <div class="main">
+        <div class="container">
+            <div class="section">
+                <div class="main-content">
+                    <div class="container-fluid">
+                        <div class="row mb-3">
+                            
+                            <button class="btn btn-primary grosBtn" [routerLink]="['/accueil']">
+                                <i class="now-ui-icons arrows-1_minimal-left"></i>
+                            </button>
+                            <div class="col text-center mb-3">
+                                <h3 class="mb-0">
+                                    Gestion Traiteur
+                                </h3>
+                                <div class="boutonAjouter">
+                                    <button class="btn btn-info " (click) = "openNouvelleEtiquette()">
+                                        <i class="now-ui-icons ui-1_simple-add ajouterEtiquette"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col text-center">
+                                <div class="card">
+                                    <div class="nav-tabs-navigation" data-tabs-color="yellow">
+                                        <div class="nav-tabs-wrapper">
+                                            <ngb-tabset [justify]="'center'" class="text-center"  (tabChange)="fetchNews($event)" >
+                                                <ngb-tab title="VITRINE" id="VITRINE">
+                                                  <ng-template ngbTabContent>
+                                                    <app-vitrine></app-vitrine>
+                                                  </ng-template>
+                                                </ngb-tab>
+                                                <ngb-tab title="CAHIER"  id="CAHIER">
+                                                  <ng-template ngbTabContent>
+                                                    <app-cahier></app-cahier>
+                                                </ng-template>
+                                                </ngb-tab>
+                                                <ngb-tab title="LISTE D'ETIQUETTES"  id="LISTE D'ETIQUETTES">
+                                                    <ng-template ngbTabContent>
+                                                        <app-liste-etiquettes></app-liste-etiquettes>
+                                                        
+                                                  </ng-template>
+                                                  </ngb-tab>
+                                                  <ngb-tab title="LISTE DE PRODUITS"  id="LISTE DE PRODUITS">
+                                                      <ng-template ngbTabContent>
+                                                        
+                                                        <app-liste-produits></app-liste-produits>
+                                                        
+                                                    </ng-template>
+                                                    </ngb-tab>
+                                            </ngb-tabset>
+                                        </div>
+                                    </div>
+                                  </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>  
+</div>

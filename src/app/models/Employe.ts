@@ -1,10 +1,10 @@
 import EvenementEmploye from "./EvenementEmploye";
-import ResumeEmploye from "./SemaineEmploye";
+import ResumeEmploye from "./ResumeSemaineUtilisateur";
 
 export default interface Employe {
 
     id:number;
-    nom:string;
+    nomPrenom:string;
     listeResumeEmploye : ResumeEmploye[];
     isActif:boolean
 }

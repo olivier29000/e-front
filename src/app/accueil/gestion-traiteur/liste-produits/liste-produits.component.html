@@ -1,0 +1,190 @@
+
+
+        <div class="table-responsive main">
+            <div class="d-flex justify-content-center">
+                <ngb-pagination 
+                [collectionSize]="nbPaginations * 10" 
+                [(page)]="paginationCourante" 
+                [maxSize]="5"
+                (pageChange)="initListeProduit(paginationCourante)"
+                aria-label="Default pagination" 
+                class="pagination-primary">
+                </ngb-pagination>
+            </div>
+            <table class="table table-shopping">
+                <thead>
+                    <tr>
+                        <th class="text-center">
+                            <div class="row m-3">
+                                <div ngbDropdown class="col text-center btn btn-default" ngbDropdownToggle>
+                                    <button class="btn" >RECHERCHE</button>
+                                    <div ngbDropdownMenu>
+                                        <a class="dropdown-item" *ngFor = "let categorie of listeCategorie"
+                                        (click) = "selectCategorie(categorie)">
+                                            {{categorie}}
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row m-3">
+                                <h4 class="col text-center">
+                                    VITRINE
+                                </h4>
+                            </div>
+                        </th>
+                        <th>
+                            <div class="row">
+                                <div class="col-8 text-center">
+                                    <h4 class="mt-1">
+                                        <input type="text" placeholder="RECHERCHE"
+                                        name = "rechercheReference" [(ngModel)] = "rechercheReference">
+                                    </h4>
+                                </div>
+                                <div class="col-4 text-center">
+                                    <button class="btn btn-primary" (click) = "rechercheByReference()">
+                                        <i class="now-ui-icons ui-1_check"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row m-3" >
+                                <h4 class="col text-center">
+                                    Référence
+                                </h4>
+                            </div>
+                            
+                        </th>
+                        <th>
+                            <div class="row">
+                                <div class="col-8 text-center">
+                                    <h4 class="mt-1">
+                                        <input type="text" placeholder="RECHERCHE"
+                                        name = "rechercheNom" [(ngModel)] = "rechercheNom">
+                                    </h4>
+                                </div>
+                                <div class="col-4 text-center">
+                                    <button class="btn btn-primary" (click) = "rechercheByNom()">
+                                        <i class="now-ui-icons ui-1_check"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row m-3">
+                                <h4 class="col text-center">
+                                    Nom
+                                </h4>
+                            </div>
+                            
+                        </th>
+                        <th>
+                            <div class="row bouttonNouveauProduit m-3">
+                                <button class="col text-center btn btn-info" (click) = "ajouterUnProduit()">
+                                    Nouveau
+                                </button>
+                            </div>
+                            <div class="row m-3">
+                                <h4 class="col text-center">
+                                    Photo
+                                </h4>
+                            </div>
+                        </th>
+                        <th >
+                            <div class="row bouttonNouveauProduit m-3">
+                                <button class="col text-center btn btn-secondary" (click) = "initListeProduit(this.paginationCourante)">
+                                    ACTUALISER
+                                </button>
+                            </div>
+                            <div class="row m-3">
+                                <div class="col text-center">
+                                    <h4>
+                                        <i *ngIf = "index != 0"
+                                         class="navbar-brand now-ui-icons now-ui-icons-next-prev arrows-1_minimal-left mr-3" 
+                                         (click) = "addToIndex(-1)"></i>
+                                        <i  *ngIf = "listeProduitTraiteur && listeProduitTraiteur.length != 0 && listeProduitTraiteur.length == 10"
+                                         class="navbar-brand now-ui-icons now-ui-icons-next-prev arrows-1_minimal-right ml-3" 
+                                        (click) = "addToIndex(1)"></i>
+                                    </h4>
+                                </div>
+                            </div>
+                        </th>
+                        <th>
+                            <div class="row m-3">
+                                <h4 class="col text-center">
+                                    ||
+                                </h4>
+                            </div>
+                            <div class="row m-3">
+                                <h4 class="col text-center">
+                                    ||
+                                </h4>
+                            </div>
+                        </th>
+                        
+                    </tr>
+                </thead>
+                
+                <tbody>
+                    
+                    <tr *ngIf = "!listeProduitTraiteur">
+                        <td class="text-center">
+                            <span  class="spinner-border spinner-border-sm" 
+                            role="status" 
+                            aria-hidden="true"></span>
+                        </td>
+                        <td class="text-center">
+                            <span  class="spinner-border spinner-border-sm" 
+                            role="status" 
+                            aria-hidden="true"></span>
+                        </td>
+                        <td class="text-center">
+                            <span  class="spinner-border spinner-border-sm" 
+                            role="status" 
+                            aria-hidden="true"></span>
+                        </td>
+                        <td class="text-center">
+                            <span  class="spinner-border spinner-border-sm" 
+                            role="status" 
+                            aria-hidden="true"></span>
+                        </td>
+                        <td class="text-center">
+                            <span  class="spinner-border spinner-border-sm" 
+                            role="status" 
+                            aria-hidden="true"></span>
+                        </td>
+                        <td class="text-center">
+                            <span  class="spinner-border spinner-border-sm" 
+                            role="status" 
+                            aria-hidden="true"></span>
+                        </td>
+                    </tr>
+                                        
+                    <tr *ngFor = "let produitTraiteur of listeProduitTraiteur">
+                        <td class="text-center">{{produitTraiteur.emplacementVitrine}}</td>
+                        <td class="text-center">{{produitTraiteur.reference}}</td>
+                        <td class="text-center">{{produitTraiteur.nom}}</td>
+                        <td  style="min-width: 20vh;">
+                            <div *ngIf = "produitTraiteur.image.picByte" class="fileinput text-center" #input>
+                                <div [ngClass]="{'img-circle':isRound}" class="thumbnail img-raised">
+                                    <img src="{{'data:image/jpg;base64,' + produitTraiteur.image.picByte}}" alt="..." />
+                                </div>
+                            </div>
+                            <div *ngIf = "!produitTraiteur.image.picByte" class="fileinput text-center" #input style="display: block;">
+                                <div [ngClass]="{'img-circle':isRound}" class="thumbnail img-raised">
+                                    <img src="assets/img/image_placeholder.jpg" alt="..." />
+                                </div>
+                            </div>
+                        </td>
+                        <td class="text-center">
+                            <img *ngFor = "let allergene of getListeAllergeneByProduitTraiteur(produitTraiteur)" 
+                            class="iconAllergene" [src]="allergene.image" alt="">
+                        </td>
+                        <td class="text-center">
+                            <button class="btn btn-secondary m-3" (click) = "modifierProduitTraiteur(produitTraiteur)">
+                                Modifier
+                            </button>
+                            <button class="btn btn-danger m-3"  (click) = "supprimerProduitTraiteur(produitTraiteur)">
+                            Supprimer
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>

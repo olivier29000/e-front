@@ -1,0 +1,288 @@
+<div class="wrapper">
+    <div class="page-header page-header-small">
+        <div class="page-header-image rellax-header" style="background-image: url('assets/img/backgroundLogin.jpg') ;">
+        </div>
+        <div class="content-center">
+            <div class="row">
+                <div class="col-md-8 ml-auto mr-auto text-center">
+                    <h2 class="title">INTRANET</h2>
+                    <h4>Epicerie du port - Sainte Marine</h4>
+                </div>
+            </div>
+        </div>
+    </div>  
+    <div class="main">
+        <div class="container">
+            <div class="section">
+                <div class="main-content">
+                    <div class="container-fluid">
+                        <div class="row mb-3">
+                            
+                            <button class="btn btn-primary grosBtn" [routerLink]="['/accueil']">
+                                <i class="now-ui-icons arrows-1_minimal-left"></i>
+                            </button>
+                            <div class="col text-center mb-3">
+                                <h3 class="mb-0">
+                                    Gestion des fournisseurs {{utilisateurConnecte.nomPrenom}}
+                                </h3>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col text-center">
+                                <div class="card">
+                                    <div class="nav-tabs-navigation" data-tabs-color="yellow">
+                                        <div class="nav-tabs-wrapper">
+                                            <ngb-tabset [justify]="'center'" class="text-center"  (tabChange)="fetchNews($event)" >
+                                                <ngb-tab title="FOURNISSEURS" id="FOURNISSEURS">
+                                                  <ng-template ngbTabContent>
+                                                    
+                                                    <div class="main">
+                                                        <div class="section  p-3">
+                                                            <div class="row">
+                                                                <div class="col text-center">
+                                                                    <button class="btn btn-warning grosBtn" (click) = "ajouterFournisseur()">
+                                                                        <i class="now-ui-icons ui-1_simple-add">Ajouter un fournisseur</i>
+                                                                    </button>
+                                                                </div>
+                                                    
+                                                            </div>
+                                                            <div class="row" *ngIf = "messageErreur">
+                                                                <div class="col text-center text-danger">
+                                                                    {{messageErreur}}
+                                                                </div>
+                                                            </div>
+                            
+                                                            <div class="row">
+                                                                <div  *ngFor="let fournisseur of listeFournisseur" 
+                                                                [ngClass]="fournisseur.listeProduit ? 'col-10 ml-auto mr-auto' : 'col-md-3 col-sm-4 col-6'">
+                                                                   
+                                                                        <div   
+                                                                        class="card card-product card-plain mb-0" 
+                                                                        style = "border : thin solid rgba(50,50,50,0.3); 
+                                                                        background-color: rgba(255, 178, 54, 0.9) ;">
+                                                                            
+                                                                            <div class="card-body parent pb-0" style="cursor: pointer;">
+                                                                                
+                                                                                <div class="price-container text-center">
+                        
+                                                                                    <button *ngIf = "!fournisseur.listeProduit" 
+                                                                                            class="btn btn-success" 
+                                                                                            (click) = "passerCommande(fournisseur)">
+                        
+                                                                                        <i class="now-ui-icons ui-1_simple-add">Passer une commande</i>
+                        
+                                                                                    </button>
+                        
+                                                                                    <h5 class="card-title">
+                                                                                        {{fournisseur.entreprise}}
+                                                                                    </h5>
+                                                                                    <p class="card-title">
+                                                                                        {{fournisseur.nomPrenom}}
+                                                                                    </p>
+                                                                                    <p class="card-title">
+                                                                                        {{fournisseur.telephone}}
+                                                                                    </p>
+                                                                                    <h5 class="card-title">
+                                                                                        {{fournisseur.email}}
+                                                                                    </h5>
+                                                                                    <p class="card-title">
+                                                                                        {{fournisseur.codeClient}}
+                                                                                    </p>
+                                                                                    
+                                                                                    <button *ngIf = "fournisseur.listeProduit" 
+                                                                                            class="btn btn-secondary" 
+                                                                                            (click) = "fournisseur.listeProduit = null">
+                                                                                            
+                                                                                        <i class="now-ui-icons ui-1_simple-add">Terminer</i>
+                                                                                    </button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="section pt-1 border" *ngIf = "fournisseur.listeProduit">
+                                                                            <div class="row">
+                                                                                <div class="col text-center">
+                                                                                    <button class="btn btn-warning grosBtn" (click) = "ajouterUnProduit(fournisseur)">
+                                                                                        <i class="now-ui-icons ui-1_simple-add">Ajouter Un Produit</i>
+                                                                                    </button>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="row" *ngIf = "fournisseur.listeProduit.length == 0">
+                                                                                <div class="col text-center">
+                                                                                    <p>Aucun produit pour ce fournisseur</p>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="table-responsive" *ngIf = "fournisseur.listeProduit.length > 0">
+                                                                                <table class="table table-shopping">
+                                                                                    <thead>
+                                                                                        <tr>
+                                                                                            <th style="max-width: 10%;" class="text-center">Categorie</th>
+                                                                                            <th style="max-width: 10%;">Référence</th>
+                                                                                            <th style="max-width: 10%;">Nom</th>
+                                                                                            <th style="width: 50%;">Quantité commandée</th>
+                                                                                            <th style="max-width: 10%;">||</th>
+                                                                                            
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    <tbody>
+                                                                                        <tr *ngFor = "let commandeProduit of listeCommandeProduit">
+                                                                                            <td class="text-center">{{commandeProduit.produit.categorie}}</td>
+                                                                                            <td>{{commandeProduit.produit.reference}}</td>
+                                                                                            <td>{{commandeProduit.produit.nom}}</td>
+                                                                                            <td>
+                                                                                                <div class="btn-group">
+                                                                                                    <button class="btn btn-info btn-sm" (click) = "commandeProduit.nbLot = commandeProduit.nbLot - 1"> 
+                                                                                                        <i class="now-ui-icons ui-1_simple-delete"></i> 
+                                                                                                    </button>
+                                                                                                    <p>-{{commandeProduit.nbLot * commandeProduit.produit.nbUniteParLot}}-</p>
+                                                                                                    <button class="btn btn-info btn-sm" (click) = "commandeProduit.nbLot = commandeProduit.nbLot +1"> 
+                                                                                                        <i class="now-ui-icons ui-1_simple-add"></i> 
+                                                                                                    </button>
+                                                                                                </div>
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <button class="btn btn-secondary" (click) = "modifierUnProduit(commandeProduit.produit, fournisseur)">
+                                                                                                <i class="now-ui-icons ui-1_simple-add"></i>
+                                                                                                </button>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                            <div class="row">
+                                                                                <div class="col text-center" *ngIf = "fournisseur.listeProduit.length > 0">
+                                                                                    <button class="btn btn-warning grosBtn" (click) = "postCommande()">
+                                                                                        <i class="now-ui-icons ui-1_simple-add">Envoyer le mail</i>
+                                                                                    </button>
+                                                                                </div>
+                                                                    
+                                                                            </div>
+                                                                        </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row" *ngIf = "messageErreur">
+                                                                <div class="col text-center text-danger">
+                                                                    {{messageErreur}}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                        
+                                                  </ng-template>
+                                                </ngb-tab>
+                                                <ngb-tab title="COMMANDES_FOURNISSEURS"  id="COMMANDES_FOURNISSEURS">
+                                                  <ng-template ngbTabContent>
+                                                    
+                                                    <div class="main">
+                                                        <div class="section">
+                                                            <div class="table-responsive">
+                                                                <table class="table table-shopping">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th class="text-center">Date Commande</th>
+                                                                            <th class="text-center">Date Confirmation</th>
+                                                                            <th>Fournisseur</th>
+                                                                            <th>Employe</th>
+                                                                            <th>||</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody *ngFor = "let commande of listeCommande" >
+                                                                            <tr (click) = "getlisteCommandeProduit(commande)" class="pointer" [ngStyle]="{'background-color': (commande.confirmedByFournisseur) ? 'rgba(255, 178, 54, 0.9)' : ''}">
+                                                                                <td class="text-center">{{getDateString(commande.dateCommande)}}</td>
+                                                                                <td class="text-center">{{getDateString(commande.dateConfirmedByFournisseur)}}</td>
+                                                                                <td class="text-center">{{commande.fournisseur.entreprise}}</td>
+                                                                                <td class="text-center">{{commande.utilisateur.nomPrenom}}</td>
+                                                                                <td class="text-center">
+                                                                                    <button class="btn btn-info" (click) = "archiver(commande)">
+                                                                                        Archiver
+                                                                                    </button>
+                                                                                </td>
+                                                                                
+                                                                            </tr>
+                                                                            <tr *ngFor = "let commandeProduit of commande.listeCommandeProduit" [ngStyle]="{'background-color': (commande.confirmedByFournisseur) ? 'rgba(255, 178, 54, 0.4)' : ''}">
+                                                                                <td class="text-right" *ngIf = "commandeProduit.nbLot > 0">
+                                                                                    
+                                                                                </td>
+                                                                                <td class="text-center" *ngIf = "commandeProduit.nbLot > 0 && commandeProduit.produit.nbUniteParLot == 1">
+                                                                                    {{commandeProduit.nbLot}} {{commandeProduit.produit.nom}}
+                                                                                </td>
+                                                                                <td class="text-center" *ngIf = "commandeProduit.nbLot > 0 && commandeProduit.produit.nbUniteParLot > 1">
+                                                                                    {{commandeProduit.nbLot}} lot(s) de {{commandeProduit.produit.nbUniteParLot}} {{commandeProduit.produit.nom}}
+                                                                                </td>
+                                                                                <td class="text-left" *ngIf = "commandeProduit.nbLot > 0">
+                                                                                    
+                                                                                </td>
+                                                                                <td class="text-left" *ngIf = "commandeProduit.nbLot > 0">
+                                                                                    
+                                                                                </td>
+                                                                            </tr>
+                                                                        
+                                                                    </tbody>
+                                                                </table>
+                                                                
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </ng-template>
+                                                </ngb-tab>
+
+                                                <ngb-tab title="ARCHIVES"  id="ARCHIVES">
+                                                    <ng-template ngbTabContent>
+                                                      
+                                                      <div class="main">
+                                                          <div class="section">
+                                                              <div class="table-responsive">
+                                                                  <table class="table table-shopping">
+                                                                      <thead>
+                                                                          <tr>
+                                                                              <th class="text-center">Date Commande</th>
+                                                                              <th class="text-center">Date Archive</th>
+                                                                              <th>Fournisseur</th>
+                                                                              <th>Employe</th>
+                                                                          </tr>
+                                                                      </thead>
+                                                                      <tbody *ngFor = "let commande of listeCommandeArchive" >
+                                                                              <tr (click) = "getlisteCommandeProduit(commande)" class="pointer" [ngStyle]="{'background-color': (commande.confirmedByFournisseur) ? 'rgba(255, 178, 54, 0.9)' : ''}">
+                                                                                  <td class="text-center">{{getDateString(commande.dateCommande)}}</td>
+                                                                                  <td class="text-center">{{getDateString(commande.dateArchive)}}</td>
+                                                                                  <td class="text-center">{{commande.fournisseur.entreprise}}</td>
+                                                                                  <td class="text-center">{{commande.utilisateur.nomPrenom}}</td>
+                                                                              </tr>
+                                                                              <tr *ngFor = "let commandeProduit of commande.listeCommandeProduit" [ngStyle]="{'background-color': (commande.confirmedByFournisseur) ? 'rgba(255, 178, 54, 0.4)' : ''}">
+                                                                                  <td class="text-right" *ngIf = "commandeProduit.nbLot > 0">
+                                                                                      
+                                                                                  </td>
+                                                                                  <td class="text-center" *ngIf = "commandeProduit.nbLot > 0 && commandeProduit.produit.nbUniteParLot == 1">
+                                                                                      {{commandeProduit.nbLot}} {{commandeProduit.produit.nom}}
+                                                                                  </td>
+                                                                                  <td class="text-center" *ngIf = "commandeProduit.nbLot > 0 && commandeProduit.produit.nbUniteParLot > 1">
+                                                                                      {{commandeProduit.nbLot}} lot(s) de {{commandeProduit.produit.nbUniteParLot}} {{commandeProduit.produit.nom}}
+                                                                                  </td>
+                                                                                  <td class="text-left" *ngIf = "commandeProduit.nbLot > 0">
+                                                                                      
+                                                                                  </td>
+                                                                                  <td class="text-left" *ngIf = "commandeProduit.nbLot > 0">
+                                                                                      
+                                                                                  </td>
+                                                                              </tr>
+                                                                          
+                                                                      </tbody>
+                                                                  </table>
+                                                                  
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                  </ng-template>
+                                                  </ngb-tab>
+                                            </ngb-tabset>
+                                        </div>
+                                    </div>
+                                  </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>  
+</div>
