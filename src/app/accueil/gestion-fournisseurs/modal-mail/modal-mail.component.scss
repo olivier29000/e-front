@@ -1,6 +1,10 @@
 .modal {
     display: block;
   }
+
+  p {
+    white-space: pre-line;
+  }
   
   .modal-body:before,
     .modal-body:after {

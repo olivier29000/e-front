@@ -1,0 +1,119 @@
+<div class="wrapper">
+    <app-header></app-header>
+    
+    <div class="section">
+        <div class="container">
+            <div class="row mt-3">
+                <div class="col text-center">
+                    <h4>Mes informations</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="content table-responsive table-full-width">
+                            <table class="table table-hover table-striped">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 10%;">employe</th>
+                                        <th class="text-center">e-mail</th>
+                                        <th class="text-center">téléphone</th>
+                                      <th class="text-center">
+                                         début <br> de <br> contrat
+                                      </th>
+                                      <th class="text-center">
+                                        fin <br> de <br> contrat
+                                      </th>
+                                      <th class="text-center">
+                                        Durée <br> de travail <br> hebdo
+                                      </th>
+                                      <th class="text-center">
+                                        couleur
+                                      </th>
+                                      <th class="text-center">
+                                        Droits <br> Logiciels
+                                      </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr >
+                                        <td class="text-center">
+                                           <p>{{utilisateurConnecte.nomPrenom}}</p> 
+                                        </td>
+                                        <td class="text-center">
+                                            <p>{{utilisateurConnecte.email}}</p> 
+                                        </td>
+                                        <td class="text-center">
+                                            <p>{{utilisateurConnecte.telephone}}</p> 
+                                        </td>
+                                        <td class="text-center">
+                                            <p>{{getDateString(utilisateurConnecte.dateDebutContrat)}}</p> 
+                                        </td>
+                                        <td class="text-center">
+                                            <p>{{getDateString(utilisateurConnecte.dateFinContrat)}}</p> 
+                                        </td>
+                                        <td class="text-center">
+                                            <p>{{utilisateurConnecte.dureeTravailHebdo}}h</p> 
+                                        </td>
+                                        <td class="text-center">
+                                            <div class="picker" >
+                                                <div class="color-picker">
+                                                    <div class="summary-info">
+                                                      <div class="circle" [ngStyle]="{'background': utilisateurConnecte.couleur}"></div>
+                                                    </div>
+                                                  </div>
+                                            </div>
+                                            
+                                            <div class="picker">
+                                            
+                                            </div>
+                                        </td>
+                                        <td class="text-center">
+                                            <p class="mb-0" *ngFor="let logiciel of utilisateurConnecte.listeLogiciel">{{logiciel.titre}}</p>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                          </table>
+                        </div>
+                    </div>
+                </div>
+            </div>  
+
+            <div class="row">
+                <div class="col text-center">
+                    <h4>Mes collègues</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="content table-responsive table-full-width">
+                            <table class="table table-hover table-striped">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 10%;">employe</th>
+                                        <th class="text-center">e-mail</th>
+                                        <th class="text-center">téléphone</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor = "let collegue of listeCollegue">
+                                        <td class="text-center">
+                                           <p>{{collegue.nomPrenom}}</p> 
+                                        </td>
+                                        <td class="text-center">
+                                            <p>{{collegue.email}}</p> 
+                                        </td>
+                                        <td class="text-center">
+                                            <p>{{collegue.telephone}}</p> 
+                                        </td>
+                                    </tr>
+                                </tbody>
+                          </table>
+                        </div>
+                    </div>
+                </div>
+            </div>  
+        </div>
+    </div>
+</div> 

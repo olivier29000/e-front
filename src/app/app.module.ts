@@ -32,6 +32,11 @@ import { VitrineComponent } from './accueil/gestion-traiteur/vitrine/vitrine.com
 import { CahierComponent } from './accueil/gestion-traiteur/cahier/cahier.component';
 import { NouveauProduitTraiteurComponent } from './accueil/gestion-traiteur/liste-produits/nouveau-produit-traiteur/nouveau-produit-traiteur.component';
 import { NouvelleEtiquetteComponent } from './accueil/gestion-traiteur/nouvelle-etiquette/nouvelle-etiquette.component';
+import { MonCompteComponent } from './accueil/mon-compte/mon-compte.component';
+import { HeaderComponent } from './accueil/header/header.component';
+import { ModificationCreationMotDePasseComponent } from './modification-creation-mot-de-passe/modification-creation-mot-de-passe.component';
+import { ReponseFournisseurComponent } from './accueil/gestion-fournisseurs/reponse-fournisseur/reponse-fournisseur.component';
+import { EtiquetteComponent } from './accueil/gestion-traiteur/etiquette/etiquette.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +62,12 @@ import { NouvelleEtiquetteComponent } from './accueil/gestion-traiteur/nouvelle-
     VitrineComponent,
     CahierComponent,
     NouveauProduitTraiteurComponent,
-    NouvelleEtiquetteComponent
+    NouvelleEtiquetteComponent,
+    MonCompteComponent,
+    HeaderComponent,
+    ModificationCreationMotDePasseComponent,
+    ReponseFournisseurComponent,
+    EtiquetteComponent
   ],
   imports: [
     FormsModule,

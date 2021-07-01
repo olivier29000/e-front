@@ -7,6 +7,8 @@ import swal from 'sweetalert2';
 import * as moment from 'moment';
 import Utilisateur from 'app/models/Utilisateur';
 import { Subscription } from 'rxjs';
+import { UtilsService } from 'app/services/utils.service';
+import { Router } from '@angular/router';
 
 declare var $: any;
 
@@ -30,7 +32,9 @@ export class MonCalendrierComponent implements OnInit {
   utilisateurConnecte : Utilisateur
 
   constructor(private calendarService : CalendarService,
-    private authService : AuthService) { }
+    private authService : AuthService,
+    private utilsService : UtilsService,
+    private router : Router) { }
 
 
   ngOnInit(){
@@ -38,7 +42,6 @@ export class MonCalendrierComponent implements OnInit {
     this.utilisateurConnecteSub = this.authService.subConnecte.subscribe(
       (utilisateurConnecte) => {
         this.utilisateurConnecte = utilisateurConnecte
-        console.log(utilisateurConnecte)
         }
       , (error) => console.log(error)
     );
@@ -71,33 +74,36 @@ export class MonCalendrierComponent implements OnInit {
         this.intervalStart = moment(new Date(view.dayGrid.dayDates[0])).valueOf()
             this.intervalEnd =  moment(new Date(view.dayGrid.dayDates[view.dayGrid.dayDates.length - 1])).valueOf()
             this.changeListeEventsUtilisateurCourant()
+            $(".fc-left h2").text(this.getTitle());
       },
       firstDay : 1,
+      height: 1000,
+      slotLabelFormat:"HH:mm",
+      titleFormat: function(date) {
+        return date.toString() + '!!!';
+      },
+      columnHeaderText: (mom) => {
+        return this.getDateStringJourMois(mom.valueOf())
+      },
       defaultView : 'agendaWeek',
       header: {
         left: 'title',
-        center: 'agendaWeek,agendaDay',
         right: 'prev,next,today'
       },
       defaultDate: today,
       selectable: true,
       selectHelper: true,
         views: {
-          month: { // name of view
-            titleFormat: 'MMMM YYYY'
-            // other view-specific options here
-          },
           week: {
-            titleFormat: " MMMM D YYYY"
-          },
-          day: {
-            titleFormat: 'D MMM, YYYY'
+            titleFormat: '[Semaine du] D MMMM YYYY',
+            titleRangeSeparator: ' au ',
           }
         },
       editable: true,
       eventLimit: true, // allow "more" link when too many events
             // color classes: [ event-blue | event-azure | event-green | event-orange | event-red ]
-      events: this.listeEvent
+      events: this.listeEvent,
+      timeFormat: 'HH:mm'
     });
       }
     )
@@ -113,5 +119,19 @@ export class MonCalendrierComponent implements OnInit {
         $('#fullCalendar').fullCalendar('addEventSource', this.listeEvent);
       }
     )
+  }
+
+  getTitle() : string{
+    return this.utilsService.getTitleCalendar(this.intervalStart, this.intervalEnd)
+  }
+
+  getDateStringJourMois(dateNumber : number) : string{
+    return this.utilsService.getDateStringJourMois(dateNumber)
+  }
+
+  
+
+  deconnexion() {
+    this.authService.deconnexion().subscribe(() => { this.router.navigate(['/login']); });
   }
 }

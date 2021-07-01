@@ -1,0 +1,117 @@
+ <!-- CARD PRODUIT -->
+ <div class="section pb-0 pt-0">
+    <div class="container">
+        <div class = "iconFermeture" (click) = "fermer()">
+            <i class="now-ui-icons ui-1_simple-remove"></i>
+        </div>
+        <div class="section detailProduit">
+            <div class="container">
+                
+                <div class="row" *ngIf = "etiquetteCourante.image && etiquetteCourante.image.picByte"
+                (click) = "openImage(etiquetteCourante.image)">
+                    <div class="col text-center">
+                        <div class="fileinput text-center" #input>
+                            <div [ngClass]="{'img-circle':isRound}" class="thumbnail img-raised">
+                                <img src="{{'data:image/jpg;base64,' + etiquetteCourante.image.picByte}}" alt="..." />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" *ngIf = "!etiquetteCourante.image.picByte">
+                    <div class="col text-center">
+                        <div class="fileinput text-center" #input style="display: block;">
+                            <div [ngClass]="{'img-circle':isRound}" class="thumbnail img-raised">
+                                <img src="assets/img/image_placeholder.jpg" alt="..." />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row border">
+                    <div class="col-9 text-center">
+                        <h5>
+                            Produit : {{etiquetteCourante.produitTraiteur.nom}}
+                        </h5>
+                        <div class="row" 
+                        *ngIf = "etiquetteCourante.produitTraiteur.image && etiquetteCourante.produitTraiteur.image.picByte">
+                            <div class="col text-center">
+                                <div class="fileinput text-center" #input>
+                                    <div [ngClass]="{'img-circle':isRound}" class="thumbnail img-raised">
+                                        <img src="{{'data:image/jpg;base64,' + etiquetteCourante.produitTraiteur.image.picByte}}" alt="..." />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row" *ngIf = "!etiquetteCourante.produitTraiteur.image || !etiquetteCourante.produitTraiteur.image.picByte">
+                            <div class="col text-center">
+                                <div class="fileinput text-center" #input style="display: block;">
+                                    <div [ngClass]="{'img-circle':isRound}" class="thumbnail img-raised">
+                                        <img src="assets/img/image_placeholder.jpg" alt="..." />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div>
+                            Ouvert le :
+                            <h4 class="mt-1">
+                                {{getDateString(etiquetteCourante.dateOuverture)}}
+                            </h4>
+                        </div>
+                        <div>
+                            Date de fin de vitrine :
+                            <h4 class="mt-1">
+                                {{getDateString(etiquetteCourante.dateFermeturePrevu)}}
+                            </h4>
+                        </div>
+                        <div>
+                            Numéro de lot :
+                            <h4 class="mt-1">
+                                {{etiquetteCourante.numeroDeLot}}
+                            </h4>
+                        </div>
+                        <div>
+                            Emplacement Vitrine :
+                            <h4 class="mt-1">
+                                {{etiquetteCourante.produitTraiteur.emplacementVitrine}}
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="row border">
+                    <div class="col text-center">
+                        <h5>
+                            Allergènes
+                        </h5>
+                        <div class="">
+                            <img *ngFor = "let allergene of etiquetteCourante.produitTraiteur.listeAllergene"
+                            src={{allergene.urlImage}} class = "iconAllergene" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+                
+    </div>
+</div>
+<!-- FIN CARD PRODUIT -->
+<!-- DETAIL PRODUIT -->
+
+<!-- FIN DETAIL PRODUIT -->
+
+
+<div class = "row">
+    <div class = "col text-center">
+        <button class="btn btn-primary mr-3"
+        (click) = "fermer()">ANNULER</button>
+        <button class="btn btn-primary mr-3"
+        (click) = "modifier()">MODIFIER</button>
+        <button *ngIf = "!etiquetteCourante.ferme" class="btn btn-primary mr-3"
+        (click) = "indiquerEtiquetteTermineeByIdEtiquette(etiquetteCourante.id)">TERMINER</button>
+        <button *ngIf = "etiquetteCourante.ferme" class="btn btn-primary mr-3"
+        (click) = "indiquerEtiquetteOuverteByIdEtiquette(etiquetteCourante.id)">OUVRIR</button>
+                
+    </div>
+</div>

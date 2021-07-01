@@ -38,6 +38,19 @@
                                       </div>
                                 </div>
                             </div>
+                            <div class="row mt-3">
+                                <div class="col-12 col-md-8 ml-auto mr-auto">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">  <i class="now-ui-icons users_circle-08"></i></span>
+                                        </div>
+                                        
+                                          <input type="text" class="form-control ml-3" 
+                                          placeholder="numéro de téléphone" (focus)="focus=true" (blur)="focus=false"
+                                          name = "telephone" [(ngModel)]="employe.telephone">
+                                      </div>
+                                </div>
+                            </div>
                             <div class="row mt-3" *ngIf = "!employe.id">
                                 <div class="col-12 col-md-8 ml-auto mr-auto">
                                     <div class="input-group">

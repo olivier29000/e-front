@@ -26,7 +26,6 @@ export class PanneauAffichageComponent implements OnInit {
     this.panneauAffichageService.getOneRandomImage().subscribe(
       imageCourante => {
         this.imageCourante = imageCourante
-        console.log(this.imageCourante)
       }
     )
   }
@@ -35,7 +34,6 @@ export class PanneauAffichageComponent implements OnInit {
     this.panneauAffichageService.getOneRandomImage().subscribe(
       imageCourante => {
         this.imageCourante = imageCourante
-        console.log(this.imageCourante)
       }
     )
   }

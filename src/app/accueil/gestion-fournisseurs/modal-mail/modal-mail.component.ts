@@ -14,6 +14,7 @@ export class ModalMailComponent implements OnInit {
   @Input() emailFournisseur : Email;
   @Input() listeCommandeProduit : CommandeProduit[];
 
+  requeteEnCours : boolean = false;
 
   errorMessage : string = "";
   errorDestinataire  : string = "";
@@ -25,6 +26,8 @@ export class ModalMailComponent implements OnInit {
     private commandeService : CommandeService) { }
 
   ngOnInit(): void {
+    console.log(this
+      .emailFournisseur)
   }
 
   closeModal(){
@@ -32,9 +35,16 @@ export class ModalMailComponent implements OnInit {
   }
 
   validerMail(){
+    this.requeteEnCours = true;
     this.commandeService.postCommandeByListeCommandeProduit(this.listeCommandeProduit).subscribe(
-        res => this.activeModal.close("200"),
-        error => this.errorMessage = "Il y a eu un problème"
+        res => {
+          this.activeModal.close("200")
+          this.requeteEnCours = false;
+        },
+        error => {
+          this.errorMessage = "Il y a eu un problème"
+          this.requeteEnCours = false;
+        }
       )
   }
 

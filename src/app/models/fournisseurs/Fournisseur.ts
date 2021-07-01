@@ -15,5 +15,7 @@ export default interface Fournisseur {
     codeClient : string;
 
     listeProduit : Produit[]
+    
+    listeDateCommandePrecedentes : number[];
 
   }

@@ -18,5 +18,7 @@ export default interface Etiquette {
     utilisateurFermeture : Utilisateur;
 
     numeroDeLot : string;
+
+    ferme : boolean;
     
 }

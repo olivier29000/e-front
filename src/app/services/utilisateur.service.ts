@@ -25,4 +25,16 @@ export class UtilisateurService {
   postUtilisateur(utilisateur : Utilisateur) : Observable<void>{
     return this.http.post<void>(`${URL_BACKEND}/postUtilisateur`,utilisateur , { withCredentials: true });
   }
+  
+  getAllCollegue() : Observable<Utilisateur[]>{
+    return this.http.get<Utilisateur[]>(`${URL_BACKEND}/getAllCollegue`, { withCredentials: true });
+  }
+
+  demanderModificationMotDePasse(email :string) : Observable<void>{
+    return this.http.get<void>(`${URL_BACKEND}/demandeModificationMotDePasseByEmailUtilisateur/${email}`);
+  }
+
+  modifierMotDePasse(nouveauMotDePasse : string, cleUrl :string) : Observable<void>{
+    return this.http.get<void>(`${URL_BACKEND}/modifierMotDePasse/${nouveauMotDePasse}/${cleUrl}`);
+  }
 }

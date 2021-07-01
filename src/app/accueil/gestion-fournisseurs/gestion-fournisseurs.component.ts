@@ -52,7 +52,6 @@ export class GestionFournisseursComponent implements OnInit {
     this.utilisateurConnecteSub = this.authService.subConnecte.subscribe(
       (utilisateurConnecte) => {
         this.utilisateurConnecte = utilisateurConnecte
-        console.log(utilisateurConnecte)
         }
       , (error) => console.log(error)
     );
@@ -72,7 +71,11 @@ export class GestionFournisseursComponent implements OnInit {
     this.fournisseurService.getAll().subscribe(
       listeFournisseur => {
         this.listeFournisseur = listeFournisseur
-        console.log(this.listeFournisseur)
+        this.listeFournisseur.forEach(fournisseur => 
+          this.fournisseurService.getListeDateCommandePrecedentesByIdFournisseur(fournisseur.id).subscribe(
+            listeDateCommandePrecedentes => fournisseur.listeDateCommandePrecedentes = listeDateCommandePrecedentes
+          )
+        )
       }
     )
   }
@@ -128,9 +131,21 @@ export class GestionFournisseursComponent implements OnInit {
       listeProduit => {
         fournisseur.listeProduit = listeProduit
         this.listeCommandeProduit = listeProduit.map(produit => {
-          let produitCommande =  {nbLot : 0, produit : produit} as CommandeProduit
+          let produitCommande = {}  as CommandeProduit
+          if(this.listeCommandeProduit.some(commandeProduit => commandeProduit.produit.id == produit.id)){
+            produitCommande =  {nbLot : this.listeCommandeProduit.find(commandeProduit => commandeProduit.produit.id == produit.id).nbLot, produit : produit} as CommandeProduit
+          }else{
+            produitCommande =  {nbLot : 0, produit : produit} as CommandeProduit
+          }
           return produitCommande
         })
+        this.listeCommandeProduit.forEach(produitCommande => 
+          this.produitService.getListeQuantiteCommandePrecedentesByIdProduit(produitCommande.produit.id).subscribe(
+            listeQuantiteCommandePrecedentes => produitCommande.produit.listeQuantiteCommandePrecedentes = listeQuantiteCommandePrecedentes
+          )
+        )
+        
+        
       },
       err => fournisseur.listeProduit = []
     )
@@ -165,7 +180,6 @@ export class GestionFournisseursComponent implements OnInit {
   }
 
   postCommande(){
-    console.log(this.listeCommandeProduit)
     this.commandeService.getMailByListeCommandeProduit(this.listeCommandeProduit).subscribe(
       email => {
         const modalRef = this.modalService.open(ModalMailComponent, { centered: true,size: 'lg', backdrop: 'static' });

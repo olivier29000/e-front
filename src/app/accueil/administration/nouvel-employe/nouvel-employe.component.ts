@@ -1,14 +1,18 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { NgbActiveModal, NgbCalendar, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbCalendar, NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import Logiciel from 'app/models/Logiciel';
 import Utilisateur from 'app/models/Utilisateur';
+import { NgbDateCustomParserFormatter } from 'app/services/dateformat';
 import { UtilisateurService } from 'app/services/utilisateur.service';
 
 
 @Component({
   selector: 'app-nouvel-employe',
   templateUrl: './nouvel-employe.component.html',
-  styleUrls: ['./nouvel-employe.component.scss']
+  styleUrls: ['./nouvel-employe.component.scss'],
+  providers: [
+    {provide: NgbDateParserFormatter, useClass: NgbDateCustomParserFormatter}
+   ]
 })
 export class NouvelEmployeComponent implements OnInit {
 
@@ -53,11 +57,9 @@ export class NouvelEmployeComponent implements OnInit {
       this.employe = {} as Utilisateur
       this.employe.listeLogiciel = []
     }else{
-      console.log(this.employe.dateDebutContrat)
-      console.log(this.employe.dateFinContrat)
-      var dateDebut = new Date(this.employe.dateDebutContrat);
+      var dateDebut = new Date(this.employe.dateDebutContrat + 7200000);
       this.selectedDateDebutContrat = { day: dateDebut.getUTCDate(), month: dateDebut.getUTCMonth() + 1, year: dateDebut.getUTCFullYear()};
-      var dateFin = new Date(this.employe.dateFinContrat);
+      var dateFin = new Date(this.employe.dateFinContrat  + 7200000);
       this.selectedDateFinContrat = { day: dateFin.getUTCDate(), month: dateFin.getUTCMonth() + 1, year: dateFin.getUTCFullYear()};
       
       }
@@ -76,7 +78,6 @@ export class NouvelEmployeComponent implements OnInit {
   
   isLogicielOn(logiciel : Logiciel) : boolean{
     let res :boolean = this.employe.listeLogiciel.some(l => l.titre == logiciel.titre)
-    console.log(res)
     return res
   }
 
@@ -110,13 +111,13 @@ export class NouvelEmployeComponent implements OnInit {
 
   selectDateDebutContrat(newDate){
     this.selectedDateDebutContrat = newDate
-    this.employe.dateDebutContrat = new Date(newDate.year, newDate.month - 1, newDate.day).getTime() + 86400000
+    this.employe.dateDebutContrat = new Date(newDate.year, newDate.month - 1, newDate.day).getTime()
     
   }
 
   selectDateFinContrat(newDate){
     this.selectedDateFinContrat = newDate
-    this.employe.dateFinContrat = new Date(newDate.year, newDate.month - 1, newDate.day).getTime() + 86400000
+    this.employe.dateFinContrat = new Date(newDate.year, newDate.month - 1, newDate.day).getTime()
   }
 
 }

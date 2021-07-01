@@ -37,3 +37,15 @@ textarea.form-control:focus{
 .form-control{
     border-left: none;
 }
+
+.ngb-dp-header{
+    background-color: black !important;
+}
+
+::ng-deep div.ngb-dp-header {
+    background-color: black;
+  }
+
+  ::ng-deep option {
+    background-color: black;
+  }

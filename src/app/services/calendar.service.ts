@@ -19,24 +19,24 @@ export class CalendarService {
 
   getResumeSemaineUtilisateur(idUtilisateur : number, intervalStart : number, internalEnd : number) : Observable<ResumeSemaineUtilisateur>{
 
-    internalEnd = internalEnd + 86400000
+    internalEnd = internalEnd + 79200000
     return this.http.get<ResumeSemaineUtilisateur>(`${URL_BACKEND}/getResumeSemaineUtilisateur/${idUtilisateur}/${intervalStart}/${internalEnd}`, { withCredentials: true });
   }
   
   getAllEventByUtilisateur(intervalStart : number, internalEnd : number) : Observable<EventDto[]>{
-
+    internalEnd = internalEnd + 79200000
     return this.http.get<EventDto[]>(`${URL_BACKEND}/getAllEventByUtilisateur/${intervalStart}/${internalEnd}`, { withCredentials: true });
   }
 
   getAllEventByUtilisateurForGestionCalendrier(idUtilisateur : number, intervalStart : number, internalEnd : number) : Observable<EventDto[]>{
 
-    internalEnd = internalEnd + 86400000
+    internalEnd = internalEnd + 79200000
     return this.http.get<EventDto[]>(`${URL_BACKEND}/getAllEventByUtilisateurForGestionCalendrier/${idUtilisateur}/${intervalStart}/${internalEnd}`, { withCredentials: true });
   }
 
   getAllEventAllUtilisateurByIdEtatEvent(idEtatEvent : number, intervalStart : number, internalEnd : number) : Observable<EventDto[]>{
 
-    internalEnd = internalEnd + 86400000
+    internalEnd = internalEnd + 79200000
     return this.http.get<EventDto[]>(`${URL_BACKEND}/getAllEventAllUtilisateurByIdEtatEvent/${idEtatEvent}/${intervalStart}/${internalEnd}`, { withCredentials: true });
   }
 

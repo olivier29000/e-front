@@ -1,0 +1,67 @@
+<div class="wrapper">
+    <div class="page-header page-header-small">
+        <div class="page-header-image rellax-header" style="background-image: url('assets/img/backgroundLogin.jpg') ;">
+        </div>
+        <div class="content-center">
+            <div class="row">
+                <div class="col-md-8 ml-auto mr-auto text-center">
+                    <h2 class="title">Epicerie du port - Sainte Marine</h2>
+                </div>
+            </div>
+        </div>
+    </div>  
+    <div class="main" >
+        <div class="container" *ngIf = "messageErreur != ''">
+            <div class="row">
+                <div class="col text-center">
+                    <h2>Bonjour</h2>
+                    <h4>{{messageErreur}}</h4>
+                </div>
+            </div>
+            
+        </div>
+        <div class="container"  *ngIf = "messageErreur == ''">
+            <div class="row">
+                <div class="col text-center">
+                    <img src="assets/img/logo.png" alt="" class="logo">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col text-center">
+                    <h2>Bonjour</h2>
+                    <h4>Nous vous invitons à confirmer ou annuler notre commande grâce à cette page</h4>
+                </div>
+            </div>
+            <div class="row" *ngFor = "let commandeProduit of listeCommandeProduit">
+                <div class="col text-center">
+                    <p *ngIf = "commandeProduit.produit.nbUniteParLot > 1">{{commandeProduit.nbLot}} lots de {{commandeProduit.produit.nbUniteParLot}} {{commandeProduit.produit.nom}}, référence : ({{commandeProduit.produit.reference}})</p>
+                    <p *ngIf = "commandeProduit.produit.nbUniteParLot == 1">{{commandeProduit.nbLot}} {{commandeProduit.produit.nom}}, référence : ({{commandeProduit.produit.reference}})</p>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col text-center">
+                    <p>Vous pouvez aussi nous laisser une note (250 caractères maximum) si vous le pensez utile</p>
+                    <textarea [(ngModel)] = "messageReponse" maxlength="250" name="" id="" cols="30" rows="10"></textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col text-center">
+                    <button class="btn btn-info" (click) = "confirmerCommande()">
+                        Je confirme votre commande
+                    </button>
+                    <button class="btn btn-warning" (click) = "annulerCommande()">
+                        Je ne peux pas confirmer votre commande
+                    </button>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col text-center">
+                    <div class="">Service conçu et développée par 
+                        <a href="https://olivier-lasbleis.site" target="_blank" class="text-danger">Olivier Lasbleis</a>.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

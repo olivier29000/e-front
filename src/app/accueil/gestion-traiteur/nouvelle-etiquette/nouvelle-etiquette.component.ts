@@ -26,7 +26,7 @@ export class NouvelleEtiquetteComponent implements OnInit {
 
   listeProduitTraiteur : ProduitTraiteur[] = [];
 
-  rechercheStringProduit : string;
+  rechercheStringProduit : string = "";
 
   selectedFile: File;
 
@@ -34,7 +34,11 @@ export class NouvelleEtiquetteComponent implements OnInit {
 
   selectedDateFinVitrine: NgbDateStruct = undefined;
 
-  index : number = 0;
+  index : number = 1;
+
+  nbPaginations : number = 0;
+
+  nbElementParPagination : number = 4;
 
   messageErreur : string = "";
 
@@ -58,21 +62,48 @@ export class NouvelleEtiquetteComponent implements OnInit {
 
       this.etiquetteCourante.dateOuverture
       this.selectDateOuverture(this.selectedDateOuverture)
-      this.traiteurService.getListeProduitTraiteurForCreationEtiquette(this.index).subscribe(
-        listeProduitTraiteur => {
-          this.listeProduitTraiteur = listeProduitTraiteur
-        }
-      )
+      
     }
+    let date : Date = new Date(this.etiquetteCourante.dateOuverture + 7200000)
+    this.selectedDateOuverture = { day: date.getUTCDate(), month: date.getUTCMonth() + 1, year: date.getUTCFullYear()};
+    date  = new Date(this.etiquetteCourante.dateFermeturePrevu + 7200000)
+    this.selectedDateFinVitrine =  { day: date.getUTCDate(), month: date.getUTCMonth() + 1, year: date.getUTCFullYear()};
+    this.traiteurService.getListeProduitTraiteurRecherche(this.index, this.nbElementParPagination).subscribe(
+      listeProduitTraiteur => {
+        this.listeProduitTraiteur = listeProduitTraiteur
+      }
+    )
+    this.getNbPaginationsProduitTraiteur()
+  }
+
+  initListeProduit(paginationCourante : number){
+    this.traiteurService.getListeProduitTraiteurRecherche(paginationCourante, this.nbElementParPagination).subscribe(
+      listeProduitTraiteur => {
+        this.listeProduitTraiteur = listeProduitTraiteur
+      }
+    )
+  }
+
+  getListeProduitTraiteurRecherche(){
+    this.traiteurService.getListeProduitTraiteurRecherche(this.index,this.nbElementParPagination,this.rechercheStringProduit).subscribe(
+      listeProduitTraiteur => {
+        this.listeProduitTraiteur = listeProduitTraiteur
+      }
+    )
+    this.getNbPaginationsProduitTraiteur(this.rechercheStringProduit)
+  }
+
+  getNbPaginationsProduitTraiteur(recherche ? : string){
+    this.traiteurService.getNbPaginationProduitTraiteur(this.nbElementParPagination, recherche).subscribe(
+      nbPaginations => this.nbPaginations = nbPaginations
+    )
   }
 
 
   addIndex(){
-    
   }
 
   minusIndex(){
-    
   }
 
 
@@ -95,7 +126,6 @@ export class NouvelleEtiquetteComponent implements OnInit {
 
   selectProduit(produitTraiteur : ProduitTraiteur){
     this.etiquetteCourante.produitTraiteur=produitTraiteur;
-    console.log(this.etiquetteCourante)
   }
 
 

@@ -8,6 +8,8 @@ export default interface Commande {
     dateCommande: number;
     dateConfirmedByFournisseur: number;
     confirmedByFournisseur: boolean;
+    canceledByFournisseur: boolean;
+    reponseFournisseur: string;
     fournisseur : Fournisseur;
     utilisateur : Utilisateur;
     listeCommandeProduit:CommandeProduit[];

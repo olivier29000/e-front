@@ -20,17 +20,17 @@ export class ListeProduitsComponent implements OnInit {
 
     listeProduitTraiteur : ProduitTraiteur[];
 
-    listeCategorie : string[];
+    listeVitrine : string[] = ["BOUCHERIE", "FROMAGES", "SALADES", "PATISSERIES", "PLATS_PREPARES", "CHARCUTERIE"]
 
     rechercheReference : string = "";
     
     rechercheNom : string = "";
 
-    index : number = 0
+    index : number = 1
     
     rechercheCourante : string = ""
     
-    categorieCourante : string = ""
+    vitrineCourante : string = ""
 
     listeDesAllergenesDisponibles : Allergene[];
 
@@ -38,17 +38,27 @@ export class ListeProduitsComponent implements OnInit {
   
     nbPaginations : number = 0
 
+    nbElementParPagination : number = 20
+
   ngOnInit(): void {
     this.initListeProduit(this.paginationCourante);
-    this.traiteurService.getNbPaginationProduitTraiteur().subscribe(
+    this.traiteurService.getNbPaginationProduitTraiteur(this.nbElementParPagination).subscribe(
       nbPaginations => this.nbPaginations = nbPaginations
     )
-    
   }
 
   
-  selectCategorie(categorie){
-
+  selectVitrine(vitrine : string){
+    this.paginationCourante = 1
+    this.vitrineCourante = vitrine
+    this.traiteurService.getListeProduitTraiteurRechercheVitrine(this.paginationCourante,this.nbElementParPagination,vitrine).subscribe(
+      listeProduitTraiteur => {
+        this.listeProduitTraiteur = listeProduitTraiteur
+      }
+    )
+    this.traiteurService.getNbPaginationProduitTraiteurVitrine(this.nbElementParPagination, vitrine).subscribe(
+      nbPaginations => this.nbPaginations = nbPaginations
+    )
   }
 
   rechercheByReference(){
@@ -56,7 +66,14 @@ export class ListeProduitsComponent implements OnInit {
   }
 
   rechercheByNom(){
-
+    this.traiteurService.getListeProduitTraiteurRecherche(this.index,this.nbElementParPagination,this.rechercheNom).subscribe(
+      listeProduitTraiteur => {
+        this.listeProduitTraiteur = listeProduitTraiteur
+      }
+    )
+    this.traiteurService.getNbPaginationProduitTraiteur(this.nbElementParPagination, this.rechercheNom).subscribe(
+      nbPaginations => this.nbPaginations = nbPaginations
+    )
   }
 
   ajouterUnProduit(){
@@ -69,13 +86,31 @@ export class ListeProduitsComponent implements OnInit {
     });
   }
 
+  actualiser(){
+    this.vitrineCourante = ""
+    this.rechercheNom = ""
+    this.rechercheReference = ""
+    this.paginationCourante = 1
+    this.initListeProduit(this.paginationCourante)
+  }
+
   initListeProduit(paginationCourante : number){
-    this.traiteurService.getAllProduitTraiteur(paginationCourante - 1).subscribe(
-      listeProduitTraiteur => this.listeProduitTraiteur = listeProduitTraiteur
+    this.traiteurService.getListeProduitTraiteurRecherche(this.paginationCourante,this.nbElementParPagination,this.rechercheNom).subscribe(
+      listeProduitTraiteur => {
+        this.listeProduitTraiteur = listeProduitTraiteur
+      }
+    )
+    this.traiteurService.getNbPaginationProduitTraiteur(this.nbElementParPagination, this.rechercheNom).subscribe(
+      nbPaginations => this.nbPaginations = nbPaginations
     )
   }
 
-  getListeAllergeneByProduitTraiteur(produitTraiteur){
+  getListeAllergeneByProduitTraiteur(produitTraiteur) : Allergene[]{
+    let listeDesAllergenesProduit : Allergene[] = []
+    produitTraiteur.listeAllergene.forEach(allergene => {
+      listeDesAllergenesProduit.push(this.listeDesAllergenesDisponibles.filter(obj => obj.nomAllergene === allergene)[0]);
+    })
+    return listeDesAllergenesProduit;
 
   }
 

@@ -7,7 +7,7 @@
             (click) = "selectAllergene(allergene)">
         </div>
     </div>
-    <div class="d-flex justify-content-center">
+    <div class="d-flex justify-content-center mt-3">
         <ngb-pagination 
         [collectionSize]="nbPaginations * 10" 
         [(page)]="paginationCourante" 
@@ -69,12 +69,12 @@
                     </div>
                 </td>
                 <td class="text-center">
-                    <div *ngIf = "etiquette.produitTraiteur.image.picByte" class="fileinput text-center" #input>
+                    <div *ngIf = "etiquette.produitTraiteur.image && etiquette.produitTraiteur.image.picByte" class="fileinput text-center" #input>
                         <div [ngClass]="{'img-circle':isRound}" class="thumbnail img-raised">
                             <img src="{{'data:image/jpg;base64,' + etiquette.produitTraiteur.image.picByte}}" alt="..." />
                         </div>
                     </div>
-                    <div *ngIf = "!etiquette.produitTraiteur.image.picByte" class="fileinput text-center" #input style="display: block;">
+                    <div *ngIf = "!etiquette.produitTraiteur.image || !etiquette.produitTraiteur.image.picByte" class="fileinput text-center" #input style="display: block;">
                         <div [ngClass]="{'img-circle':isRound}" class="thumbnail img-raised">
                             <img src="assets/img/image_placeholder.jpg" alt="..." />
                         </div>
@@ -98,6 +98,16 @@
         <div class="col text-center text-warning">
             <p>AUCUN ELEMENT A AFFICHER</p>
         </div>
+    </div>
+    <div class="d-flex justify-content-center mt-3">
+        <ngb-pagination 
+        [collectionSize]="nbPaginations * 10" 
+        [(page)]="paginationCourante" 
+        [maxSize]="5"
+        (pageChange)="getAllEtiquetteOuverteByAllergene(paginationCourante)"
+        aria-label="Default pagination" 
+        class="pagination-primary">
+        </ngb-pagination>
     </div>
     <div class="row">
         <div class="col text-center">

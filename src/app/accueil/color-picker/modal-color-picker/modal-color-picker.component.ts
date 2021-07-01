@@ -16,6 +16,8 @@ export class ModalColorPickerComponent implements OnInit {
   public show = true;
 
   public defaultColors: string[] = [
+    '#808080',
+    '#C0C0C0',
     '#ffffff',
     '#000105',
     '#3e6158',
@@ -40,7 +42,24 @@ export class ModalColorPickerComponent implements OnInit {
     '#f0ca68',
     '#62382f',
     '#c97545',
-    '#c1800b'
+    '#c1800b',
+    '#FF0000',
+    '#FFFF00',
+    '#808000',
+    '#00FF00',
+    '#008000',
+    '#00FFFF',
+    '#008080',
+    '#0000FF',
+    '#000080',
+    '#FF00FF',
+    '#800080',
+    '#FFA500',
+    '#FF00FF',
+    '#9400D3',
+    '#7CFC00',
+    '#00FFFF',
+    '#87CEFA'
   ];
 
   constructor(public activeModal: NgbActiveModal) { }

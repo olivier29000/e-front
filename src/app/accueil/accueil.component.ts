@@ -17,7 +17,6 @@ export class AccueilComponent implements OnInit {
     this.authService.getUtilisateur().subscribe(
       utilisateur => {
         this.utilisateur = utilisateur
-        console.log(this.utilisateur)
       }
     )
   }

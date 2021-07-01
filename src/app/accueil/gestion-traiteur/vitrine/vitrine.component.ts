@@ -39,7 +39,6 @@ export class VitrineComponent implements OnInit {
               this.listeEmplacementVitrine.push(
                 {titreEmplacementVitrine : titreEmplacementVitrine,
                 listeEtiquette : listeEtiquette} as EmplacementVitrine)
-              console.log(this.listeEmplacementVitrine)
             }
           )
         });

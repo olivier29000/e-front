@@ -7,40 +7,16 @@
             </tr>
         </thead>
         <tbody>
-            <tr  *ngIf = "!listeEtiquetteFromage || !listeEtiquetteSalades || !listeEtiquettePatisseries || !listeEtiquettePlatsPrepares || !listeEtiquetteBoucherie || !listeEtiquetteCharcuterie">
-                <td class="text-center">
-                    <span  *ngIf = "!listeEtiquetteFromage" class="spinner-border spinner-border-sm" 
-                    role="status" 
-                    aria-hidden="true"></span>
-                </td>
-                <td class="text-center">
-                    <span *ngIf = "!listeEtiquetteSalades" class="spinner-border spinner-border-sm" 
-                    role="status" 
-                    aria-hidden="true"></span>
-                </td>
-                <td class="text-center">
-                    <span *ngIf = "!listeEtiquettePatisseries" class="spinner-border spinner-border-sm" 
-                    role="status" 
-                    aria-hidden="true"></span>
-                </td>
-                <td class="text-center">
-                    <span *ngIf = "!listeEtiquettePlatsPrepares" class="spinner-border spinner-border-sm" 
-                    role="status" 
-                    aria-hidden="true"></span>
-                </td>
-                <td class="text-center">
-                    <span *ngIf = "!listeEtiquetteBoucherie" class="spinner-border spinner-border-sm" 
-                    role="status" 
-                    aria-hidden="true"></span>
-                </td>
-                <td class="text-center">
-                    <span *ngIf = "!listeEtiquetteCharcuterie" class="spinner-border spinner-border-sm" 
-                    role="status" 
-                    aria-hidden="true"></span>
-                </td>
-            </tr>
             <tr>
                 <td class="text-center" *ngFor = "let emplacementVitrine of listeEmplacementVitrine" >
+
+                    <span  *ngIf = "!emplacementVitrine.listeEtiquette" class="spinner-border spinner-border-sm" 
+                    role="status" 
+                    aria-hidden="true"></span>
+                    <p class="text-warning" *ngIf = "emplacementVitrine.listeEtiquette.length == 0">
+                        VIDE
+                    </p>
+
                     <div *ngFor = "let etiquette of emplacementVitrine.listeEtiquette" 
                     class="etiquette border"
                     [ngStyle]="{'background-color': getColorByDate(etiquette)}"
@@ -54,5 +30,12 @@
             
         </tbody>
     </table>
+    <div class="row" *ngIf = "!listeEmplacementVitrine">
+        <div class="col text-center">
+            <span  class="spinner-border spinner-border-sm" 
+                    role="status" 
+                    aria-hidden="true"></span>
+        </div>
+    </div>
     
 </div>

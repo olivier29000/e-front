@@ -24,5 +24,9 @@ export class ProduitService {
   postproduitByIdFournisseur(produit : Produit, idFournisseur : number) :  Observable<void>{
     return this.http.post<void>(`${URL_BACKEND}/postProduitByIdFournisseur/${idFournisseur}`,produit, { withCredentials: true })
   }
+
+  getListeQuantiteCommandePrecedentesByIdProduit(idProduit : number) :  Observable<number[]>{
+    return this.http.get<number[]>(`${URL_BACKEND}/getListeQuantiteCommandePrecedentesByIdProduit/${idProduit}`, { withCredentials: true })
+  }
   
 }

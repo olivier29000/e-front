@@ -9,37 +9,28 @@
     </div>
     <div class="modal-body">
         <div class="col text-center">
-            <label>destinataire :</label>
+            <label class="text-info font-weight-bold">destinataire :</label>
             <div class="input-group" >
-                <input type="text" class="form-control"
-                name="destinataire" placeholder="Destinataire du mail" 
-                [(ngModel)] = "emailFournisseur.destinataire">
+                <p>{{emailFournisseur.destinataire}}</p>
             </div>
             <div *ngIf="errorDestinataire" class="alert alert-danger">
                 {{errorDestinataire}}
             </div>
         </div>
+        
         <div class="col text-center">
-            <label>Objet :</label>
+            <label class="text-info font-weight-bold">Objet :</label>
             <div class="input-group" >
-                <input type="text" class="form-control"
-                name="objet" placeholder="Objet du mail" 
-                [(ngModel)] = "emailFournisseur.objet">
+                <p>{{emailFournisseur.objet}}</p>
             </div>
             <div *ngIf="errorObjet" class="alert alert-danger">
                 {{errorObjet}}
             </div>
         </div>
         <div class="col text-center">
-            <label>Contenu du mail :</label>
+            <label class="text-info font-weight-bold">Contenu du mail :</label>
             <div class="input-group" >
-                <textarea 
-                name = "texteMail"
-                placeholder="Contenu du mail" 
-                rows="4" 
-                [(ngModel)] = "emailFournisseur.contenu"
-                class="mt-3">
-                </textarea>
+                <p>{{emailFournisseur.contenu}}</p>
             </div>
             <div *ngIf="errorTextMail" class="alert alert-danger">
                 {{errorTextMail}}
@@ -48,10 +39,19 @@
         
 
     </div>
-    <div class="modal-footer">
-        <button class="btn btn-primary" (click) = "validerMail()">
-            <i class="now-ui-icons ui-1_simple-add">Envoyer le mail</i>
-        </button>
-    </div>
+        <div class="row">
+            <div class="col text-center">
+                <button *ngIf = "!requeteEnCours" class="btn btn-primary" (click) = "validerMail()">
+                    <i class="now-ui-icons ui-1_simple-add">Envoyer le mail</i>
+                </button>
+                <button *ngIf = "requeteEnCours" class="btn btn-primary btn-round" 
+                    type="button" disabled>
+                    <span class="spinner-border spinner-border-sm" 
+                    role="status" 
+                    aria-hidden="true">
+                    </span>
+                </button>  
+            </div>
+        </div>
     </div>
     </div>

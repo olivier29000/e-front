@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import Email from 'app/models/Email';
 import Commande from 'app/models/fournisseurs/Commande';
 import CommandeProduit from 'app/models/fournisseurs/CommandeProduit';
 import { environment } from 'environments/environment';
@@ -39,6 +40,18 @@ export class CommandeService {
 
   getListeCommandeProduitByIdCommande(idCommande : number): Observable<CommandeProduit[]>{
     return this.http.get<CommandeProduit[]>(`${URL_BACKEND}/getListeCommandeProduitByIdCommande/${idCommande}`, { withCredentials: true })
+  }
+
+  getListeCommandeProduitByCleUrl(cleUrl : string): Observable<CommandeProduit[]>{
+    return this.http.get<CommandeProduit[]>(`${URL_BACKEND}/getListeCommandeProduitByCleUrl/${cleUrl}`)
+  }
+
+  confirmerCommande(cleUrl : string, email : Email): Observable<void>{
+    return this.http.post<void>(`${URL_BACKEND}/confirmerCommande/${cleUrl}`, email)
+  }
+
+  annulerCommande(cleUrl : string, email : Email): Observable<void>{
+    return this.http.post<void>(`${URL_BACKEND}/annulerCommande/${cleUrl}`, email)
   }
   
 

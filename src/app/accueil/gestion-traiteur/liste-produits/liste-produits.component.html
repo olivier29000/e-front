@@ -17,11 +17,11 @@
                         <th class="text-center">
                             <div class="row m-3">
                                 <div ngbDropdown class="col text-center btn btn-default" ngbDropdownToggle>
-                                    <button class="btn" >RECHERCHE</button>
+                                    <button class="btn" >{{vitrineCourante ? vitrineCourante : 'RECHERCHE'}}</button>
                                     <div ngbDropdownMenu>
-                                        <a class="dropdown-item" *ngFor = "let categorie of listeCategorie"
-                                        (click) = "selectCategorie(categorie)">
-                                            {{categorie}}
+                                        <a class="dropdown-item" *ngFor = "let vitrine of listeVitrine"
+                                        (click) = "selectVitrine(vitrine)">
+                                            {{vitrine}}
                                         </a>
                                     </div>
                                 </div>
@@ -33,24 +33,7 @@
                             </div>
                         </th>
                         <th>
-                            <div class="row">
-                                <div class="col-8 text-center">
-                                    <h4 class="mt-1">
-                                        <input type="text" placeholder="RECHERCHE"
-                                        name = "rechercheReference" [(ngModel)] = "rechercheReference">
-                                    </h4>
-                                </div>
-                                <div class="col-4 text-center">
-                                    <button class="btn btn-primary" (click) = "rechercheByReference()">
-                                        <i class="now-ui-icons ui-1_check"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="row m-3" >
-                                <h4 class="col text-center">
-                                    Référence
-                                </h4>
-                            </div>
+                            
                             
                         </th>
                         <th>
@@ -88,20 +71,13 @@
                         </th>
                         <th >
                             <div class="row bouttonNouveauProduit m-3">
-                                <button class="col text-center btn btn-secondary" (click) = "initListeProduit(this.paginationCourante)">
+                                <button class="col text-center btn btn-secondary" (click) = "actualiser()">
                                     ACTUALISER
                                 </button>
                             </div>
                             <div class="row m-3">
                                 <div class="col text-center">
-                                    <h4>
-                                        <i *ngIf = "index != 0"
-                                         class="navbar-brand now-ui-icons now-ui-icons-next-prev arrows-1_minimal-left mr-3" 
-                                         (click) = "addToIndex(-1)"></i>
-                                        <i  *ngIf = "listeProduitTraiteur && listeProduitTraiteur.length != 0 && listeProduitTraiteur.length == 10"
-                                         class="navbar-brand now-ui-icons now-ui-icons-next-prev arrows-1_minimal-right ml-3" 
-                                        (click) = "addToIndex(1)"></i>
-                                    </h4>
+                                    
                                 </div>
                             </div>
                         </th>
@@ -161,20 +137,20 @@
                         <td class="text-center">{{produitTraiteur.reference}}</td>
                         <td class="text-center">{{produitTraiteur.nom}}</td>
                         <td  style="min-width: 20vh;">
-                            <div *ngIf = "produitTraiteur.image.picByte" class="fileinput text-center" #input>
+                            <div *ngIf = "produitTraiteur.image && produitTraiteur.image.picByte" class="fileinput text-center" #input>
                                 <div [ngClass]="{'img-circle':isRound}" class="thumbnail img-raised">
                                     <img src="{{'data:image/jpg;base64,' + produitTraiteur.image.picByte}}" alt="..." />
                                 </div>
                             </div>
-                            <div *ngIf = "!produitTraiteur.image.picByte" class="fileinput text-center" #input style="display: block;">
+                            <div *ngIf = "!produitTraiteur.image || (produitTraiteur.image && !produitTraiteur.image.picByte)" class="fileinput text-center" #input style="display: block;">
                                 <div [ngClass]="{'img-circle':isRound}" class="thumbnail img-raised">
                                     <img src="assets/img/image_placeholder.jpg" alt="..." />
                                 </div>
                             </div>
                         </td>
                         <td class="text-center">
-                            <img *ngFor = "let allergene of getListeAllergeneByProduitTraiteur(produitTraiteur)" 
-                            class="iconAllergene" [src]="allergene.image" alt="">
+                            <img *ngFor = "let allergene of produitTraiteur.listeAllergene" 
+                            class="iconAllergene" src="{{allergene.urlImage}}" alt="">
                         </td>
                         <td class="text-center">
                             <button class="btn btn-secondary m-3" (click) = "modifierProduitTraiteur(produitTraiteur)">
@@ -187,4 +163,10 @@
                     </tr>
                 </tbody>
             </table>
+            
+            <div class="row mb-3" *ngIf = "listeProduitTraiteur && listeProduitTraiteur.length == 0">
+                <div class="col text-center text-warning">
+                    <p>AUCUN ELEMENT A AFFICHER</p>
+                </div>
+            </div>
         </div>

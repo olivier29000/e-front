@@ -34,8 +34,6 @@ export class NouveauProduitTraiteurComponent implements OnInit {
     private imageCompress: NgxImageCompressService) { }
 
   ngOnInit(): void {
-    
-    console.log(this.produitCourant)
 
     this.traiteurService.getAllAllergene().subscribe(
       listeDesAllergenesDisponibles => {
@@ -49,7 +47,6 @@ export class NouveauProduitTraiteurComponent implements OnInit {
     this.fournisseurService.getAll().subscribe(
       listeFournisseur => {
         this.listeFournisseur = listeFournisseur
-        console.log(this.listeFournisseur)
       }
     )
   }
@@ -90,7 +87,6 @@ export class NouveauProduitTraiteurComponent implements OnInit {
     if(this.produitCourant.listeAllergene.length == 0){
       this.produitCourant.listeAllergene = [this.listeDesAllergenesDisponibles[this.listeDesAllergenesDisponibles.length - 1]]
     }
-    console.log(this.produitCourant)
   }
   
   closeModal(){

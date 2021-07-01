@@ -8,4 +8,5 @@ export default interface Produit {
     nom: string;
     nbUniteParLot: number;
     fournisseur : Fournisseur;
+    listeQuantiteCommandePrecedentes : number[];
   }

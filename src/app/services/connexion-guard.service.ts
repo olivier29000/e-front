@@ -18,7 +18,6 @@ export class ConnexionGuardService implements CanActivate {
    * @param state RouterStateSnapshot
    */
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable< boolean|UrlTree> {
-    console.log(route.data.url)
     if(route.data.url){
       return this.authService.isLoggedInWithUrl(route.data.url).pipe(
         map(() => true)

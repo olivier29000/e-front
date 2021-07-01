@@ -12,6 +12,8 @@ export default interface Utilisateur {
 
   email: string;
 
+  telephone: string;
+
   nomPrenom : string;
 
   motDePasse : string;

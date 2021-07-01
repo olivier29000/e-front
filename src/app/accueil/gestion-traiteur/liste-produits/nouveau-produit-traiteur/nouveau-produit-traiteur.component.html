@@ -58,7 +58,7 @@
                                 </div>
                             </div>
                             
-                            <div class="row" *ngIf = "produitCourant.image.picByte">
+                            <div class="row" *ngIf = "produitCourant.image && produitCourant.image.picByte">
                                 <div class="col text-center">
                                     <div class="fileinput text-center" #input>
                                         <div [ngClass]="{'img-circle':isRound}" class="thumbnail img-raised">
@@ -67,7 +67,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row" *ngIf = "!produitCourant.image.picByte">
+                            <div class="row" *ngIf = "!produitCourant.image || (produitCourant.image && !produitCourant.image.picByte)">
                                 <div class="col text-center">
                                     <div class="fileinput text-center" #input style="display: block;">
                                         <div [ngClass]="{'img-circle':isRound}" class="thumbnail img-raised">

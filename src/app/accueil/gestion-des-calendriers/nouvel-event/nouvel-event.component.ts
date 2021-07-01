@@ -41,7 +41,7 @@ export class NouvelEventComponent implements OnInit {
   }
 
   getDateString(dateNumber : number) : string{
-    return this.utilsService.getDateString(dateNumber)
+    return this.utilsService.getDateStringWithHour(dateNumber)
   }
 
   fermer(){

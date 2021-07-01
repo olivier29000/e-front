@@ -5,7 +5,6 @@ import { isNumber } from 'util';
 @Injectable()
 export class NgbDateCustomParserFormatter extends NgbDateParserFormatter {
   parse(value: string): NgbDateStruct {
-      console.log(value)
     if (value) {
       const dateParts = value.trim().split('/');
       if (dateParts.length === 1) {
@@ -26,7 +25,6 @@ export class NgbDateCustomParserFormatter extends NgbDateParserFormatter {
         dateJs = new Date(date.year, date.month - 1, date.day);
         dateJsMilliseconds = dateJs.getTime()
       }
-    
     return date ?
     this.getDateString(dateJsMilliseconds) :
         '';

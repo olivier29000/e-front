@@ -1,5 +1,5 @@
 import { Component, ComponentFactoryResolver, OnInit } from '@angular/core';
-import { NgbCalendar, NgbDateStruct, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCalendar, NgbDateParserFormatter, NgbDateStruct, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import EtatEvent from 'app/models/calendar/EtatEvent';
 import EventDto from 'app/models/calendar/EventDto';
 import EventPost from 'app/models/calendar/EventPost';
@@ -10,6 +10,7 @@ import { UtilsService } from 'app/services/utils.service';
 import swal from 'sweetalert2';
 import { NouvelEventComponent } from './nouvel-event/nouvel-event.component';
 import * as moment from 'moment';
+import { NgbDateCustomParserFormatter } from 'app/services/dateformat';
 
 declare var $: any;
 
@@ -17,7 +18,10 @@ declare var $: any;
 @Component({
   selector: 'app-gestion-des-calendriers',
   templateUrl: './gestion-des-calendriers.component.html',
-  styleUrls: ['./gestion-des-calendriers.component.scss']
+  styleUrls: ['./gestion-des-calendriers.component.scss'],
+  providers: [
+    {provide: NgbDateParserFormatter, useClass: NgbDateCustomParserFormatter}
+   ]
 })
 export class GestionDesCalendriersComponent implements OnInit {
 
@@ -75,12 +79,16 @@ export class GestionDesCalendriersComponent implements OnInit {
                 this.intervalStart = moment(new Date(view.dayGrid.dayDates[0])).valueOf()
                 this.intervalEnd =  moment(new Date(view.dayGrid.dayDates[view.dayGrid.dayDates.length - 1])).valueOf()
                 this.changeView(new Date(view.dayGrid.dayDates[0]).toISOString().slice(0, 10))
+                $(".fc-left h2").text(this.getTitle());
               },
               firstDay : 1,
+              slotLabelFormat:"HH:mm",
+              columnHeaderText: (mom) => {
+                return this.getDateStringJourMois(mom.valueOf())
+              },
               defaultView : 'agendaWeek',
               header: {
                 left: 'title',
-                center: 'agendaWeek',
                 right: 'prev,next,today'
               },
               defaultDate: today,
@@ -101,7 +109,8 @@ export class GestionDesCalendriersComponent implements OnInit {
               editable: false,
               eventLimit: true, // allow "more" link when too many events
                     // color classes: [ event-blue | event-azure | event-green | event-orange | event-red ]
-              events: this.listeEventAllUtilisateur
+              events: this.listeEventAllUtilisateur,
+              timeFormat: 'HH:mm'
             });
           }
         )
@@ -129,16 +138,19 @@ export class GestionDesCalendriersComponent implements OnInit {
                     var $fc_scroller = $('.fc-scroller');
                     $fc_scroller.perfectScrollbar();
                 }
-                console.log(moment(new Date(view.dayGrid.dayDates[0])))
                 this.intervalStart = moment(new Date(view.dayGrid.dayDates[0])).valueOf()
                 this.intervalEnd =  moment(new Date(view.dayGrid.dayDates[view.dayGrid.dayDates.length - 1])).valueOf()
                 this.changeView(new Date(view.dayGrid.dayDates[0]).toISOString().slice(0, 10))
+                $(".fc-left h2").text(this.getTitle());
               },
               firstDay : 1,
+              slotLabelFormat:"HH:mm",
+              columnHeaderText: (mom) => {
+                return this.getDateStringJourMois(mom.valueOf())
+              },
               defaultView : 'agendaWeek',
               header: {
                 left: 'title',
-                center: 'agendaWeek',
                 right: 'prev,next,today'
               },
               defaultDate: today,
@@ -177,7 +189,6 @@ export class GestionDesCalendriersComponent implements OnInit {
                 this.modifEvent(eventPost)
               },
               eventClick:(info) =>  {
-                console.log(info)
                 swal.fire({
                   title: 'Supprimer?',
                   text: info.title + " du " + this.getDateString(info.start.valueOf()) + " au " + this.getDateString(info.end.valueOf()) ,
@@ -195,7 +206,8 @@ export class GestionDesCalendriersComponent implements OnInit {
               editable: true,
               eventLimit: true, // allow "more" link when too many events
                     // color classes: [ event-blue | event-azure | event-green | event-orange | event-red ]
-              events: this.listeEventUtilisateurCourant
+              events: this.listeEventUtilisateurCourant,
+              timeFormat: 'HH:mm'
             });
           }
         )
@@ -210,8 +222,6 @@ export class GestionDesCalendriersComponent implements OnInit {
 
   selectDateJourCopie(newDate){
     this.selectedDateJourCopie = newDate
-    console.log(this.selectedDateJourCopie)
-    console.log(new Date(newDate.year, newDate.month - 1, newDate.day).getTime())
     
   }
 
@@ -240,6 +250,14 @@ export class GestionDesCalendriersComponent implements OnInit {
 
   getDateString(dateNumber : number) : string{
     return this.utilsService.getDateString(dateNumber)
+  }
+
+  getDateStringJourMois(dateNumber : number) : string{
+    return this.utilsService.getDateStringJourMois(dateNumber)
+  }
+  
+  getTitle() : string{
+    return this.utilsService.getTitleCalendar(this.intervalStart, this.intervalEnd)
   }
 
   deleteEventById(idEvent : number){
@@ -297,7 +315,6 @@ export class GestionDesCalendriersComponent implements OnInit {
         this.listeEventAllUtilisateur = listeEventAllUtilisateur
         $("#fullCalendar").fullCalendar('removeEvents'); 
         $('#fullCalendar').fullCalendar('addEventSource', this.listeEventAllUtilisateur);
-        console.log(this.listeEventAllUtilisateur)
       }
     )
   }
@@ -314,7 +331,6 @@ export class GestionDesCalendriersComponent implements OnInit {
         this.listeEventAllUtilisateur = listeEventAllUtilisateur
         $("#calendarUtilisateur").fullCalendar('removeEvents'); 
         $('#calendarUtilisateur').fullCalendar('addEventSource', this.listeEventAllUtilisateur);
-        console.log(this.listeEventAllUtilisateur)
       }
     )
   }
@@ -323,7 +339,6 @@ export class GestionDesCalendriersComponent implements OnInit {
     this.calendarService.getResumeSemaineUtilisateur(utilisateur.id, this.intervalStart, this.intervalEnd).subscribe(
       resumeSemaineUtilisateur => {
         utilisateur.resumeSemaineUtilisateur = resumeSemaineUtilisateur
-        console.log(utilisateur.resumeSemaineUtilisateur)
       }
     )
   }

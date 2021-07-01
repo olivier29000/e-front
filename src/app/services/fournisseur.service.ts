@@ -25,4 +25,8 @@ export class FournisseurService {
     return this.http.post<void>(`${URL_BACKEND}/postFournisseur`, fournisseur, { withCredentials: true })
   }
 
+  getListeDateCommandePrecedentesByIdFournisseur(idFournisseur : number) :  Observable<number[]>{
+    return this.http.get<number[]>(`${URL_BACKEND}/getListeDateCommandePrecedentesByIdFournisseur/${idFournisseur}`, { withCredentials: true })
+  }
+
 }

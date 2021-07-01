@@ -50,7 +50,6 @@ export class ListeEtiquettesComponent implements OnInit {
     this.traiteurService.getNbPaginationEtiquette(this.listeDesAllergenesRecherche).subscribe(
       nbPaginations => {
         this.nbPaginations = nbPaginations
-        console.log(this.nbPaginations)
       }
           
     )
@@ -61,7 +60,6 @@ export class ListeEtiquettesComponent implements OnInit {
       listeEtiquette => {
         {
           this.listeEtiquette = listeEtiquette
-          console.log(this.listeEtiquette)
         }
       }
     )
