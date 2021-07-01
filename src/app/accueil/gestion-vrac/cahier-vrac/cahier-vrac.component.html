@@ -1,0 +1,60 @@
+
+<div class="wrapper main" >
+    <div class="container-fluid mt-3">
+        <div class="section-cols mt-3">
+            <div class="row">
+                <div class="col text-center">
+                    <input type="checkbox" [checked]="onlyEtiquetteOpen" (change)="changeOnlyEtiquetteOpen()">
+                    afficher uniquement les étiquettes ouvertes
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4 text-center ml-auto mr-auto">
+                    <div style="display: flex;">
+                        <i class="navbar-brand now-ui-icons arrows-1_minimal-left"  (click) = "addDayToDateCourante(-1)"></i>
+                        <input class="form-control datetimepicker text-center font-weight-bold"
+                            name="dp" [(ngModel)]="ngbDateCourante" 
+                            ngbDatepicker #d="ngbDatepicker" 
+                            (click)="d.toggle()" data-color="orange" 
+                            (ngModelChange)="selectDate($event)">
+                        <i class="navbar-brand now-ui-icons arrows-1_minimal-right" (click) = "addDayToDateCourante(1)"></i>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="row">
+                <div class="col text-center" *ngIf = "requeteEnCours">
+                    <span  class="spinner-border spinner-border-sm" 
+                    role="status" 
+                    aria-hidden="true"></span>
+                </div>
+                <div class="col text-center text-warning" *ngIf = "!requeteEnCours && listeEtiquette.length == 0">
+                    <h3>
+                        AUCUN ELEMENT A AFFICHER
+                    </h3>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center mt-3">
+                <ngb-pagination 
+                [collectionSize]="nbPaginations * 10" 
+                [(page)]="paginationCourante" 
+                [maxSize]="5"
+                (pageChange)="getAllEtiquetteByDateFermeturePrevuAndPagination(paginationCourante)"
+                aria-label="Default pagination" 
+                class="pagination-primary">
+                </ngb-pagination>
+            </div>
+            <div class="row">
+                <div class="col-md-2 col-6 imageContainer text-center" *ngFor = "let etiquette of listeEtiquette" 
+                    (click) = "openModalEtiquette(etiquette)">
+                    <img [src]="'data:image/jpg;base64,' + etiquette.image.picByte" 
+                    alt="" [ngClass]="{'etiquetteFermee': etiquette.ferme}">
+                    <h4 class="mt-1 mb-0">{{etiquette.produitVrac.nom}}</h4>
+                    <p class="mt-0 mb-0">ouvert le {{getDateString(etiquette.dateOuverture)}}</p>
+                    <p *ngIf = "etiquette.ferme" class="mt-0">fermé le {{getDateString(etiquette.dateFermetureEffective)}}</p>
+                </div>
+            </div>
+        </div>
+</div>
+</div>
+

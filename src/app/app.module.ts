@@ -37,6 +37,14 @@ import { HeaderComponent } from './accueil/header/header.component';
 import { ModificationCreationMotDePasseComponent } from './modification-creation-mot-de-passe/modification-creation-mot-de-passe.component';
 import { ReponseFournisseurComponent } from './accueil/gestion-fournisseurs/reponse-fournisseur/reponse-fournisseur.component';
 import { EtiquetteComponent } from './accueil/gestion-traiteur/etiquette/etiquette.component';
+import { GestionVracComponent } from './accueil/gestion-vrac/gestion-vrac.component';
+import { CahierVracComponent } from './accueil/gestion-vrac/cahier-vrac/cahier-vrac.component';
+import { EtiquetteVracComponent } from './accueil/gestion-vrac/etiquette-vrac/etiquette-vrac.component';
+import { ListeEtiquettesVracComponent } from './accueil/gestion-vrac/liste-etiquettes-vrac/liste-etiquettes-vrac.component';
+import { ListeProduitsVracComponent } from './accueil/gestion-vrac/liste-produits-vrac/liste-produits-vrac.component';
+import { NouvelleEtiquetteVracComponent } from './accueil/gestion-vrac/nouvelle-etiquette-vrac/nouvelle-etiquette-vrac.component';
+import { VitrineVracComponent } from './accueil/gestion-vrac/vitrine-vrac/vitrine-vrac.component';
+import { NouveauProduitVracComponent } from './accueil/gestion-vrac/liste-produits-vrac/nouveau-produit-vrac/nouveau-produit-vrac.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +75,15 @@ import { EtiquetteComponent } from './accueil/gestion-traiteur/etiquette/etiquet
     HeaderComponent,
     ModificationCreationMotDePasseComponent,
     ReponseFournisseurComponent,
-    EtiquetteComponent
+    EtiquetteComponent,
+    GestionVracComponent,
+    CahierVracComponent,
+    EtiquetteVracComponent,
+    ListeEtiquettesVracComponent,
+    ListeProduitsVracComponent,
+    NouvelleEtiquetteVracComponent,
+    VitrineVracComponent,
+    NouveauProduitVracComponent
   ],
   imports: [
     FormsModule,

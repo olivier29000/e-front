@@ -1,0 +1,198 @@
+ <!-- CARD PRODUIT -->
+ <div class="section pb-0 pt-0">
+    <div class="container">
+        <div class = "iconFermeture" (click) = "fermer()">
+            <i class="now-ui-icons ui-1_simple-remove"></i>
+        </div>
+        <div class="section detailProduit pb-0">
+            <div class="container">
+                <div class="row" *ngIf = "etiquetteCourante.image.picByte">
+                    <div class="col text-center">
+                        <div class="fileinput text-center" #input>
+                            <div [ngClass]="{'img-circle':isRound}" class="thumbnail img-raised">
+                                <img src="{{'data:image/jpg;base64,' + etiquetteCourante.image.picByte}}" alt="..." />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" *ngIf = "!etiquetteCourante.image.picByte">
+                    <div class="col text-center">
+                        <div class="fileinput text-center" #input style="display: block;">
+                            <div [ngClass]="{'img-circle':isRound}" class="thumbnail img-raised">
+                                <img src="assets/img/image_placeholder.jpg" alt="..." />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row d-flex align-items-center sectionEtiquette">
+                    <div class="col text-center">
+                        <input class="btn btn-raised btn-round btn-default btn-file" 
+                        type="file" capture="camera" accept="image/*" 
+                        id="cameraInput" name="cameraInput" (change)="changeImageEtiquette($event)">
+                    </div>
+                </div>
+                
+                <div class="row border ">
+                    <div class="col text-center">
+                        <h5>
+                            Produit
+                        </h5>
+                        <div class="row" *ngIf = "etiquetteCourante.produitVrac">
+                            <div class="col text-center">
+                                    <div class="row d-flex justify-content-center">
+                                        <div class="col-3 text-center ">
+                                            <h6>
+                                                {{etiquetteCourante.produitVrac.nom}}
+                                            </h6>
+                                            <h6>
+                                                {{etiquetteCourante.produitVrac.emplacementVitrine}}
+                                            </h6>
+                                            <div *ngIf = "etiquetteCourante.produitVrac.image && etiquetteCourante.produitVrac.image.picByte" class="fileinput text-center" #input>
+                                                <div [ngClass]="{'img-circle':isRound}" class="thumbnail img-raised">
+                                                    <img src="{{'data:image/jpg;base64,' + etiquetteCourante.produitVrac.image.picByte}}" alt="..." />
+                                                </div>
+                                            </div>
+                                            <div *ngIf = "!etiquetteCourante.produitVrac.image || !etiquetteCourante.produitVrac.image.picByte" class="fileinput text-center" #input style="display: block;">
+                                                <div [ngClass]="{'img-circle':isRound}" class="thumbnail img-raised">
+                                                    <img src="assets/img/image_placeholder.jpg" alt="..." />
+                                                </div>
+                                            </div> 
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                       
+                        <div class="row" >
+                            <div class="col text-center">
+                                <div class="row">
+                                    <div class="col text-center">
+                                        <h4 class="mt-1">
+                                            <input type="text" placeholder="*********"
+                                            name = "rechercheProduit"
+                                            [(ngModel)] = "rechercheStringProduit">
+                                        </h4>
+                                        <button class="btn btn-secondary" (click) = "getListeProduitVracRecherche()">Recherche</button>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col text-center">
+                                        <div class="d-flex justify-content-center">
+                                            <ngb-pagination 
+                                            [collectionSize]="nbPaginations * 10" 
+                                            [(page)]="index" 
+                                            [maxSize]="5"
+                                            (pageChange)="initListeProduit(index)"
+                                            aria-label="Default pagination" 
+                                            class="pagination-primary">
+                                            </ngb-pagination>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row" *ngIf = "listeProduitTraiteur.length > 0">
+                                    
+                                    <div class="col-3 text-center" *ngFor = "let produit of listeProduitTraiteur" 
+                                    (click) = selectProduit(produit)>
+                                            <h6>
+                                                {{produit.nom}}
+                                            </h6>
+                                            <h6>
+                                                {{produit.emplacementVitrine}}
+                                            </h6>
+                                            <div *ngIf = "produit.image && produit.image.picByte" class="fileinput text-center" #input>
+                                                <div [ngClass]="{'img-circle':isRound}" class="thumbnail img-raised">
+                                                    <img src="{{'data:image/jpg;base64,' + produit.image.picByte}}" alt="..." />
+                                                </div>
+                                            </div>
+                                            <div *ngIf = "!produit.image || !produit.image.picByte" class="fileinput text-center" #input style="display: block;">
+                                                <div [ngClass]="{'img-circle':isRound}" class="thumbnail img-raised">
+                                                    <img src="assets/img/image_placeholder.jpg" alt="..." />
+                                                </div>
+                                            </div>  
+                                    </div>
+                                    
+                                </div>
+
+                                
+                            </div>
+                            
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+
+                <div class="row border mt-3">
+                    <div class="col-6 text-center">
+                        Ouvert le :
+                        <h4 class="mt-1">
+                            <input class="form-control datetimepicker"
+                            name="dp" [(ngModel)]="selectedDateOuverture" 
+                            ngbDatepicker #d="ngbDatepicker" 
+                            (click)="d.toggle()" data-color="orange" 
+                            (ngModelChange)="selectDateOuverture($event)">
+                        </h4>
+                    </div>
+                    <div class="col-6 text-center">
+                        A enelever des rayons avant le :
+                        <h4 class="mt-1">
+                            <input class="form-control datetimepicker"
+                            name="dp" [(ngModel)]="selectedDateFinVitrine" 
+                            ngbDatepicker #e="ngbDatepicker" 
+                            (click)="e.toggle()" data-color="orange" 
+                            (ngModelChange)="selectDateFinVitrine($event)">
+                        </h4>
+                    </div>
+                    
+                </div>
+                
+                <div class="row border">
+                    <div class="col text-center">
+                        Numéro de lot :
+                        <h4 class="mt-1">
+                            <input type="text" placeholder="******"
+                            name = "numeroDeLot"
+                            [(ngModel)]="etiquetteCourante.numeroDeLot">
+                        </h4>
+                    </div>
+                    <div class="col-2 text-center">
+                    </div>
+                </div>
+                <div class="row" *ngIf = "etiquetteCourante">
+                    <div class="">
+                        <img class="iconAllergene" *ngFor = "let allergene of etiquetteCourante.listeDesAllergenes" src={{allergene.image}}>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+                
+    </div>
+</div>
+<!-- FIN CARD PRODUIT -->
+<!-- DETAIL PRODUIT -->
+
+<!-- FIN DETAIL PRODUIT -->
+
+<div class="row" *ngIf = "messageErreur">
+    <div class="col text-center text-danger">
+        {{messageErreur}}
+    </div>
+</div>
+<div class = "row">
+    <div class = "col text-center">
+        <button  *ngIf = "!requeteEnCours" class="btn btn-primary mr-3"
+        (click) = "fermer()">Annuler</button>
+        <button *ngIf = "!requeteEnCours" class="btn btn-primary mr-3"
+        (click) = "validerNouvelleEtiquette()">Valider</button>
+        <button *ngIf = "requeteEnCours" 
+        class="btn btn-primary btn-round" 
+        type="button" disabled>
+            <span class="spinner-border spinner-border-sm" 
+            role="status" 
+            aria-hidden="true"></span>
+        </button>    
+    </div>
+</div>

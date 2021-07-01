@@ -1,0 +1,122 @@
+<div class="table-responsive main">
+    <div class="row">
+        <div class="col text-center">
+            <img *ngFor = "let allergene of listeDesAllergenesDisponibles"
+            class="iconAllergene imageBarre"  [src]="allergene.urlImage" alt=""
+            [ngStyle] ="{'opacity': allergeneIsSelected(allergene)?'0.1':'1'}"
+            (click) = "selectAllergene(allergene)">
+        </div>
+    </div>
+    <div class="d-flex justify-content-center mt-3">
+        <ngb-pagination 
+        [collectionSize]="nbPaginations * 10" 
+        [(page)]="paginationCourante" 
+        [maxSize]="5"
+        (pageChange)="getAllEtiquetteOuverteByAllergene(paginationCourante)"
+        aria-label="Default pagination" 
+        class="pagination-primary">
+        </ngb-pagination>
+    </div>
+    <table class="table table-shopping">
+        <thead>
+            <tr>
+                <th class="text-center"  style="width: 30%;"><h3>Etiquette</h3></th>
+                <th class="text-center"  style="width: 30%;"><h3>Produit</h3></th>
+                <th class="text-center"  style="width: 10%;"><h3>Date Ouverture</h3></th>
+                <th class="text-center"  style="width: 10%;"><h3>Date Fermeture Prévu</h3></th>
+                <th class="text-center"  style="width: 30%;">
+                    <h3>
+                        Allergènes
+                    </h3>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            <tr *ngIf = "!listeEtiquette">
+                <td class="text-center">
+                    <span  class="spinner-border spinner-border-sm" 
+                    role="status" 
+                    aria-hidden="true"></span>
+                </td>
+                <td class="text-center">
+                    <span  class="spinner-border spinner-border-sm" 
+                    role="status" 
+                    aria-hidden="true"></span>
+                </td>
+                <td class="text-center">
+                    <span  class="spinner-border spinner-border-sm" 
+                    role="status" 
+                    aria-hidden="true"></span>
+                </td>
+                <td class="text-center">
+                    <span  class="spinner-border spinner-border-sm" 
+                    role="status" 
+                    aria-hidden="true"></span>
+                </td>
+            </tr>
+            <tr *ngFor = "let etiquette of listeEtiquette" (click) = "openModalEtiquette(etiquette)">
+                <td class="text-center">
+                    <div *ngIf = "etiquette.image.picByte" class="fileinput text-center" #input>
+                        <div [ngClass]="{'img-circle':isRound}" class="thumbnail img-raised">
+                            <img src="{{'data:image/jpg;base64,' + etiquette.image.picByte}}" alt="..." />
+                        </div>
+                    </div>
+                    <div *ngIf = "!etiquette.image.picByte" class="fileinput text-center" #input style="display: block;">
+                        <div [ngClass]="{'img-circle':isRound}" class="thumbnail img-raised">
+                            <img src="assets/img/image_placeholder.jpg" alt="..." />
+                        </div>
+                    </div>
+                </td>
+                <td class="text-center">
+                    <div *ngIf = "etiquette.produitVrac.image && etiquette.produitVrac.image.picByte" class="fileinput text-center" #input>
+                        <div [ngClass]="{'img-circle':isRound}" class="thumbnail img-raised">
+                            <img src="{{'data:image/jpg;base64,' + etiquette.produitVrac.image.picByte}}" alt="..." />
+                        </div>
+                    </div>
+                    <div *ngIf = "!etiquette.produitVrac.image || !etiquette.produitVrac.image.picByte" class="fileinput text-center" #input style="display: block;">
+                        <div [ngClass]="{'img-circle':isRound}" class="thumbnail img-raised">
+                            <img src="assets/img/image_placeholder.jpg" alt="..." />
+                        </div>
+                    </div>
+                </td>
+                <td class="td-name text-center">
+                    {{getDateString(etiquette.dateOuverture)}}
+                </td>
+                <td class="td-name text-center">
+                    {{getDateString(etiquette.dateFermeturePrevu)}}
+                </td>
+                <td class="td-number text-center"> 
+                        <img *ngFor = "let allergene of etiquette.produitVrac.listeAllergene" 
+                        class="iconAllergene" src={{allergene.urlImage}}  alt="">
+                </td>
+            </tr>
+            
+        </tbody>
+    </table>
+    <div class="row mb-3" *ngIf = "listeEtiquette && listeEtiquette.length == 0">
+        <div class="col text-center text-warning">
+            <p>AUCUN ELEMENT A AFFICHER</p>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center mt-3">
+        <ngb-pagination 
+        [collectionSize]="nbPaginations * 10" 
+        [(page)]="paginationCourante" 
+        [maxSize]="5"
+        (pageChange)="getAllEtiquetteOuverteByAllergene(paginationCourante)"
+        aria-label="Default pagination" 
+        class="pagination-primary">
+        </ngb-pagination>
+    </div>
+    <div class="row">
+        <div class="col text-center">
+            <i *ngIf = "index != 0" class="navbar-brand now-ui-icons arrows-1_minimal-left mr-3"  (click) = "addToIndex(-1)"></i>
+            <img *ngFor = "let allergene of listeDesAllergenesDisponibles"
+            class="iconAllergene imageBarre"  [src]="allergene.urlImage" alt=""
+            [ngStyle] ="{'opacity': allergeneIsSelected(allergene)?'0.1':'1'}"
+            (click) = "selectAllergene(allergene)">
+            <i *ngIf = "listeEtiquette && listeEtiquette.length != 0 && listeEtiquette.length == 10" class="navbar-brand now-ui-icons arrows-1_minimal-right ml-3" (click) = "addToIndex(1)"></i>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,54 @@
+<div class="wrapper">
+    <app-header></app-header>
+                <div class="main-content">
+                    <div class="container-fluid">
+                        <div class="row mb-3">
+                            <div class="col text-center mb-3">
+                                <h3 class="mb-0">
+                                    Gestion Vrac
+                                </h3>
+                                <div class="boutonAjouter">
+                                    <button class="btn btn-info " (click) = "openNouvelleEtiquette()">
+                                        <i class="now-ui-icons ui-1_simple-add ajouterEtiquette"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col text-center">
+                                <div class="card">
+                                    <div class="nav-tabs-navigation" data-tabs-color="yellow">
+                                        <div class="nav-tabs-wrapper">
+                                            <ngb-tabset [justify]="'center'" class="text-center"  (tabChange)="fetchNews($event)" >
+                                                <ngb-tab title="VITRINE" id="VITRINE">
+                                                  <ng-template ngbTabContent>
+                                                    <app-vitrine-vrac></app-vitrine-vrac>
+                                                  </ng-template>
+                                                </ngb-tab>
+                                                <ngb-tab title="CAHIER"  id="CAHIER">
+                                                  <ng-template ngbTabContent>
+                                                    <app-cahier-vrac></app-cahier-vrac>
+                                                </ng-template>
+                                                </ngb-tab>
+                                                <ngb-tab title="LISTE D'ETIQUETTES"  id="LISTE D'ETIQUETTES">
+                                                    <ng-template ngbTabContent>
+                                                        <app-liste-etiquettes-vrac></app-liste-etiquettes-vrac>
+                                                        
+                                                  </ng-template>
+                                                  </ngb-tab>
+                                                  <ngb-tab title="LISTE DE PRODUITS"  id="LISTE DE PRODUITS">
+                                                      <ng-template ngbTabContent>
+                                                        
+                                                        <app-liste-produits-vrac></app-liste-produits-vrac>
+                                                        
+                                                    </ng-template>
+                                                    </ngb-tab>
+                                            </ngb-tabset>
+                                        </div>
+                                    </div>
+                                  </div>
+                            </div>
+                        </div>
+                    </div>
+    </div>  
+</div>

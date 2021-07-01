@@ -6,6 +6,7 @@ import Etiquette from 'app/models/traiteur/Etiquette';
 import { TraiteurService } from 'app/services/traiteur.service';
 import { UtilsService } from 'app/services/utils.service';
 import { Observable, Subscription } from 'rxjs';
+import { EtiquetteComponent } from '../etiquette/etiquette.component';
 
 @Component({
   selector: 'app-vitrine',
@@ -31,6 +32,27 @@ export class VitrineComponent implements OnInit {
     public modalService: NgbModal) { }
 
   ngOnInit(): void {
+    this.initListeEtiquette()
+  }
+
+
+  getAllEtiquetteByEmplacementVitrine(emplacementVitrine : string) : Observable<Etiquette[]>{
+    return this.traiteurService.getAllEtiquetteByEmplacementVitrine(emplacementVitrine)
+  }
+
+  openModalEtiquette(etiquette : Etiquette){
+    const modalRef = this.modalService.open(EtiquetteComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.componentInstance.etiquetteCourante = etiquette;
+    modalRef.result.then(() => {
+      this.initListeEtiquette()
+    },
+     (reason) => {
+      this.initListeEtiquette()
+    });
+  }
+
+  initListeEtiquette(){
+    this.listeEmplacementVitrine = []
     this.traiteurService.getAllEmplacementVitrine().subscribe(
       listeTitreEmplacementVitrine => {
         listeTitreEmplacementVitrine.forEach(titreEmplacementVitrine => {
@@ -46,14 +68,6 @@ export class VitrineComponent implements OnInit {
     )
   }
 
-
-  getAllEtiquetteByEmplacementVitrine(emplacementVitrine : string) : Observable<Etiquette[]>{
-    return this.traiteurService.getAllEtiquetteByEmplacementVitrine(emplacementVitrine)
-  }
-
-  openModalEtiquette(etiquette : Etiquette){
-    
-  }
 
   getColorByDate(etiquette : Etiquette) : string{
     

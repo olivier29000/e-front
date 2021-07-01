@@ -7,6 +7,7 @@ import { GestionFournisseursComponent } from './accueil/gestion-fournisseurs/ges
 import { ReponseFournisseurComponent } from './accueil/gestion-fournisseurs/reponse-fournisseur/reponse-fournisseur.component';
 import { GestionPanneauAffichageComponent } from './accueil/gestion-panneau-affichage/gestion-panneau-affichage.component';
 import { GestionTraiteurComponent } from './accueil/gestion-traiteur/gestion-traiteur.component';
+import { GestionVracComponent } from './accueil/gestion-vrac/gestion-vrac.component';
 import { MonCalendrierComponent } from './accueil/mon-calendrier/mon-calendrier.component';
 import { MonCompteComponent } from './accueil/mon-compte/mon-compte.component';
 import { LoginComponent } from './login/login.component';
@@ -94,6 +95,16 @@ const routes: Routes = [
     ],
     data : {
       url : 'gestion-traiteur'
+    }
+  },
+  {
+    path: '',
+    canActivate: [ConnexionGuardService],
+    children: [
+      { path: 'accueil/gestion-vrac', component: GestionVracComponent }
+    ],
+    data : {
+      url : 'gestion-vrac'
     }
   }
   

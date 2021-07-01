@@ -1,0 +1,39 @@
+.border{
+    border: solid;
+}
+.badge{
+    height: 5vh;
+}
+.now-ui-icons {
+    display: inline-block;
+    font: normal normal normal 32px/1 'Nucleo Outline';
+    speak: none;
+    text-transform: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.iconFermeture{
+    position: absolute;
+    margin: 1vh;
+    right: 0;
+    top: 0;
+    z-index: 1000;
+}
+.iconAllergene{
+    height: 70px;
+    width: 70px;
+}
+
+.sectionEtiquette{
+    height: 20vh;
+    width: 100%;
+}
+.card-image{
+    height: 100%;
+    background-size: cover;
+    background-image: center center;
+}
+
+.swal-wide{
+    width:850px !important;
+}
