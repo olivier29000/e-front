@@ -47,12 +47,19 @@ export class NouveauProduitTraiteurComponent implements OnInit {
     this.fournisseurService.getAll().subscribe(
       listeFournisseur => {
         this.listeFournisseur = listeFournisseur
+        let noFournisseur = {} as Fournisseur
+        noFournisseur.entreprise = 'AUCUN'
+        this.listeFournisseur.unshift(noFournisseur)
       }
     )
   }
 
   selectFournisseur(fournisseur){
-    this.produitCourant.fournisseur = fournisseur
+    if(fournisseur.entreprise == 'AUCUN'){
+      this.produitCourant.fournisseur = null
+    }else{
+      this.produitCourant.fournisseur = fournisseur
+    }    
   }
 
   allergeneIsSelected(allergene : Allergene) : boolean {

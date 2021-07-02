@@ -8,7 +8,7 @@
         </thead>
         <tbody>
             <tr>
-                <td class="text-center" *ngFor = "let emplacementVitrine of listeEmplacementVitrine" >
+                <td class="text-center emplacement" *ngFor = "let emplacementVitrine of listeEmplacementVitrine" >
 
                     <span  *ngIf = "!emplacementVitrine.listeEtiquette" class="spinner-border spinner-border-sm" 
                     role="status" 
@@ -18,7 +18,7 @@
                     </p>
 
                     <div *ngFor = "let etiquette of emplacementVitrine.listeEtiquette" 
-                    class="etiquette border"
+                    class="etiquette border mt-1"
                     [ngStyle]="{'background-color': getColorByDate(etiquette)}"
                     (click) = "openModalEtiquette(etiquette)">
                         {{etiquette.produitTraiteur.nom}} 

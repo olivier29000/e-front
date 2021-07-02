@@ -1,0 +1,106 @@
+<div class="section">
+    <div class="container">
+        <div type="button" class = "iconFermeture" (click)="closeModal()">
+            <i class="now-ui-icons ui-1_simple-remove"></i>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-contact card-raised">
+                    <form role="form" id="contact-form" method="post">
+                        <div class="card-header text-center">
+                            <h4 class="card-title">Creation d'un contact</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col text-center">
+                                    <label>Entreprise</label>
+                                    <div class="input-group" >
+                                        <input type="text" class="form-control"
+                                        name="entreprise" placeholder="Entreprise" 
+                                        [(ngModel)] = "contactRepertoire.entreprise">
+                                    </div>
+                                    <div *ngIf="errorEntreprise" class="alert alert-danger">
+                                        {{errorEntreprise}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col text-center">
+                                    <label>Nom</label>
+                                    <div class="input-group" >
+                                        <input type="text" class="form-control"
+                                        name="nom" placeholder="Nom" 
+                                        [(ngModel)] = "contactRepertoire.nomPrenom">
+                                    </div>
+                                    <div *ngIf="errorNom" class="alert alert-danger">
+                                        {{errorNom}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col text-center">
+                                    <label>Telephone</label>
+                                    <div class="input-group" >
+                                        <input type="text" class="form-control"
+                                        name="telephone" placeholder="Entreprise" 
+                                        [(ngModel)] = "contactRepertoire.telephone">
+                                    </div>
+                                    <div *ngIf="errorTelephone" class="alert alert-danger">
+                                        {{errorTelephone}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col text-center">
+                                    <label>Email</label>
+                                    <div class="input-group" >
+                                        <input type="text" class="form-control"
+                                        name="email" placeholder="email" 
+                                        [(ngModel)] = "contactRepertoire.email">
+                                    </div>
+                                    <div *ngIf="errorEmail" class="alert alert-danger">
+                                        {{errorEmail}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col text-center">
+                                    <label>Type de contact</label>
+                                    <div class="input-group" >
+                                        <input type="text" class="form-control"
+                                        name="Type de contact" placeholder="Code-Client" 
+                                        [(ngModel)] = "contactRepertoire.typeContact">
+                                    </div>
+                                    <div *ngIf="errorTypeContact" class="alert alert-danger">
+                                        {{errorTypeContact}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                    <div class="col text-center mr-auto ml-auto" >
+                                        <button *ngFor = "let typeContact of listeTypeContact" (click) = "contactRepertoire.typeContact = typeContact"
+                                        [ngClass]="typeContact == contactRepertoire.typeContact ? 'btn btn-success' : 'btn btn-info'">
+                                            {{typeContact}}
+                                        </button>
+                                    </div>
+                            </div>
+                            
+                            
+                            <div class="row">
+                                <div class="col text-center">
+                                    <button type="submit" class="btn btn-primary btn-round pull-right"
+                                    (click) = "validerContactRepertoire()">Valider le contact</button>
+                                </div>
+                                <div *ngIf="errorPostContactRepertoire" class="alert alert-danger">
+                                    {{errorPostContactRepertoire}}
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </form>
+                </div>
+        </div>
+    </div>
+
+</div>
+</div>

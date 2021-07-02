@@ -45,6 +45,9 @@ import { ListeProduitsVracComponent } from './accueil/gestion-vrac/liste-produit
 import { NouvelleEtiquetteVracComponent } from './accueil/gestion-vrac/nouvelle-etiquette-vrac/nouvelle-etiquette-vrac.component';
 import { VitrineVracComponent } from './accueil/gestion-vrac/vitrine-vrac/vitrine-vrac.component';
 import { NouveauProduitVracComponent } from './accueil/gestion-vrac/liste-produits-vrac/nouveau-produit-vrac/nouveau-produit-vrac.component';
+import { RepertoireComponent } from './accueil/repertoire/repertoire.component';
+import { NouveauContactRepertoireComponent } from './accueil/repertoire/nouveau-contact-repertoire/nouveau-contact-repertoire.component';
+import { NouvelleNoteContactRepertoireComponent } from './accueil/repertoire/nouvelle-note-contact-repertoire/nouvelle-note-contact-repertoire.component';
 
 @NgModule({
   declarations: [
@@ -83,7 +86,10 @@ import { NouveauProduitVracComponent } from './accueil/gestion-vrac/liste-produi
     ListeProduitsVracComponent,
     NouvelleEtiquetteVracComponent,
     VitrineVracComponent,
-    NouveauProduitVracComponent
+    NouveauProduitVracComponent,
+    RepertoireComponent,
+    NouveauContactRepertoireComponent,
+    NouvelleNoteContactRepertoireComponent
   ],
   imports: [
     FormsModule,

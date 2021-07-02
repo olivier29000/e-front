@@ -1,0 +1,36 @@
+<div class="section">
+    <div class="container">
+        <div type="button" class = "iconFermeture" (click)="closeModal()">
+            <i class="now-ui-icons ui-1_simple-remove"></i>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-contact card-raised">
+                    <form role="form" id="contact-form" method="post">
+                        <div class="card-header text-center">
+                            <h4 class="card-title">Creation d'une note</h4>
+                        </div>
+                        <div class="card-body">
+                            
+                            <div class="row">
+                                <div class="col text-center">
+                                    <p>250 caractères maximum</p>
+                                    <textarea name="note" [(ngModel)] = "noteContactRepertoire.note" 
+                                    maxlength="250" id="" cols="30" rows="10"></textarea>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col text-center">
+                                    <button class="btn btn-success" (click) = "postNote()">
+                                        Valider
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+        </div>
+    </div>
+
+</div>
+</div>

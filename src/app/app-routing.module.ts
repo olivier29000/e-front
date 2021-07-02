@@ -10,6 +10,7 @@ import { GestionTraiteurComponent } from './accueil/gestion-traiteur/gestion-tra
 import { GestionVracComponent } from './accueil/gestion-vrac/gestion-vrac.component';
 import { MonCalendrierComponent } from './accueil/mon-calendrier/mon-calendrier.component';
 import { MonCompteComponent } from './accueil/mon-compte/mon-compte.component';
+import { RepertoireComponent } from './accueil/repertoire/repertoire.component';
 import { LoginComponent } from './login/login.component';
 import { ModificationCreationMotDePasseComponent } from './modification-creation-mot-de-passe/modification-creation-mot-de-passe.component';
 import { PanneauAffichageComponent } from './panneau-affichage/panneau-affichage.component';
@@ -105,6 +106,16 @@ const routes: Routes = [
     ],
     data : {
       url : 'gestion-vrac'
+    }
+  },
+  {
+    path: '',
+    canActivate: [ConnexionGuardService],
+    children: [
+      { path: 'accueil/repertoire', component: RepertoireComponent }
+    ],
+    data : {
+      url : 'repertoire'
     }
   }
   

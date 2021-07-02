@@ -1,0 +1,112 @@
+<div class="wrapper">
+    <app-header></app-header>
+        <div class="main">
+            <div class="section  p-3">
+                <div class="row">
+                    <div class="col text-center">
+                        <button class="btn btn-warning grosBtn" (click) = "openModalContactRepertoire()">
+                            <i class="now-ui-icons ui-1_simple-add">Ajouter un contact</i>
+                        </button>
+                    </div>
+
+                </div>
+
+                <div class="row border">
+                    <div class="col text-center mr-auto ml-auto" >
+                        <h4>RECHERCHE : </h4>
+                        <button *ngFor = "let typeContact of listeTypeContact" (click) = "getAllByTypeContact(typeContact)"
+                        [ngClass]="typeContact == typeContactCourant ? 'btn btn-success' : 'btn btn-info'">
+                            {{typeContact}}
+                        </button>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div  *ngFor="let contactRepertoire of listeContactRepertoire" 
+                    [ngClass]="contactRepertoire.listeNoteContactRepertoire ? 'col-10 ml-auto mr-auto' : 'col-md-3 col-sm-4 col-6'">
+                    
+                            <div   
+                            class="card card-product card-plain mb-0" 
+                            style = "border : thin solid rgba(50,50,50,0.3); 
+                            background-color: rgba(255, 178, 54, 0.9) ;">
+                                
+                                <div class="card-body parent pb-0" style="cursor: pointer;">
+                                    
+                                    <div class="price-container text-center">
+
+                                        <button *ngIf = "!contactRepertoire.listeNoteContactRepertoire" 
+                                                class="btn btn-success" 
+                                                (click) = "getListNote(contactRepertoire)">
+
+                                            <i class="now-ui-icons ui-1_simple-add">Voir les notes</i>
+
+                                        </button>
+
+                                        <h5 class="card-title">
+                                            {{contactRepertoire.entreprise}}
+                                        </h5>
+                                        <p class="card-title">
+                                            {{contactRepertoire.nomPrenom}}
+                                        </p>
+                                        <p class="card-title">
+                                            {{contactRepertoire.telephone}}
+                                        </p>
+                                        <h5 class="card-title">
+                                            {{contactRepertoire.email}}
+                                        </h5>
+                                        <p class="card-title">
+                                            {{contactRepertoire.typeContact}}
+                                        </p>
+                                        
+                                        <button *ngIf = "contactRepertoire.listeNoteContactRepertoire" 
+                                                class="btn btn-secondary" 
+                                                (click) = "contactRepertoire.listeNoteContactRepertoire = null">
+                                                
+                                            <i class="now-ui-icons ui-1_simple-add">Terminer</i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="section pt-1 border" *ngIf = "contactRepertoire.listeNoteContactRepertoire">
+                                <div class="row">
+                                    <div class="col text-center">
+                                        <button class="btn btn-warning grosBtn" (click) = "openModalNoteContactRepertoire(contactRepertoire)">
+                                            <i class="now-ui-icons ui-1_simple-add">Ajouter Note</i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="row" *ngIf = "contactRepertoire.listeNoteContactRepertoire.length == 0">
+                                    <div class="col text-center text-info">
+                                        <p>Aucune note pour ce contact</p>
+                                    </div>
+                                </div>
+                                <div class="table-responsive" *ngIf = "contactRepertoire.listeNoteContactRepertoire.length > 0">
+                                    <table class="table table-shopping">
+                                        <thead>
+                                            <tr>
+                                                <th style="max-width: 20%;" class="text-center">Rédacteur</th>
+                                                <th style="max-width: 20%;">Date</th>
+                                                <th style="max-width: 50%;">Note</th>
+                                                <th style="max-width: 10%;">||</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor = "let note of contactRepertoire.listeNoteContactRepertoire">
+                                                <td class="text-center">{{note.utilisateur.nomPrenom}}</td>
+                                                <td>{{getDateString(note.dateNote)}}</td>
+                                                <td class="note">{{note.note}}</td>
+                                                <td>
+                                                    <button class="btn btn-secondary" (click) = "openModalNoteContactRepertoire(contactRepertoire, note)">
+                                                    <i class="now-ui-icons ui-1_simple-add"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>

@@ -33,10 +33,6 @@
                             </div>
                         </th>
                         <th>
-                            
-                            
-                        </th>
-                        <th>
                             <div class="row">
                                 <div class="col-8 text-center">
                                     <h4 class="mt-1">
@@ -134,7 +130,6 @@
                                         
                     <tr *ngFor = "let produitTraiteur of listeProduitTraiteur">
                         <td class="text-center">{{produitTraiteur.emplacementVitrine}}</td>
-                        <td class="text-center">{{produitTraiteur.reference}}</td>
                         <td class="text-center">{{produitTraiteur.nom}}</td>
                         <td  style="min-width: 20vh;">
                             <div *ngIf = "produitTraiteur.image && produitTraiteur.image.picByte" class="fileinput text-center" #input>
