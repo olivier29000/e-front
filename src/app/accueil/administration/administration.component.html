@@ -77,6 +77,96 @@
                                             <button (click) = "nouvelEmploye(employe)" class="btn btn-info">
                                                 Modifier
                                             </button>
+                                            <button (click) = "archiverEmploye(employe)" class="btn btn-warning">
+                                                Archiver
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                          </table>
+                        </div>
+                    </div>
+                </div>
+            </div>  
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col text-center">
+                    <h4>EMPLOYES ARCHIVES</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="content table-responsive table-full-width">
+                            <table class="table table-hover table-striped">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 10%;">employe</th>
+                                        <th class="text-center">e-mail</th>
+                                        <th class="text-center">téléphone</th>
+                                      <th class="text-center">
+                                         début <br> de <br> contrat
+                                      </th>
+                                      <th class="text-center">
+                                        fin <br> de <br> contrat
+                                      </th>
+                                      <th class="text-center">
+                                        Durée <br> de travail <br> hebdo
+                                      </th>
+                                      <th class="text-center">
+                                        couleur
+                                      </th>
+                                      <th class="text-center">
+                                        Droits <br> Logiciels
+                                      </th>
+                                      <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let employe of listeEmployeArchived" >
+                                        <td class="text-center">
+                                           <p>{{employe.nomPrenom}}</p> 
+                                        </td>
+                                        <td class="text-center">
+                                            <p>{{employe.email}}</p> 
+                                        </td>
+                                        <td class="text-center">
+                                            <p>{{employe.telephone}}</p> 
+                                        </td>
+                                        <td class="text-center">
+                                            <p>{{getDateString(employe.dateDebutContrat)}}</p> 
+                                        </td>
+                                        <td class="text-center">
+                                            <p>{{getDateString(employe.dateFinContrat)}}</p> 
+                                        </td>
+                                        <td class="text-center">
+                                            <p>{{employe.dureeTravailHebdo}}h</p> 
+                                        </td>
+                                        <td class="text-center">
+                                            <div class="picker" >
+                                                <div class="color-picker">
+                                                    <div class="summary-info">
+                                                      <div class="circle" [ngStyle]="{'background': employe.couleur}"></div>
+                                                    </div>
+                                                  </div>
+                                            </div>
+                                            
+                                            <div class="picker">
+                                            
+                                            </div>
+                                        </td>
+                                        <td class="text-center">
+                                            <p class="mb-0" *ngFor="let logiciel of employe.listeLogiciel">{{logiciel.titre}}</p>
+                                        </td>
+                                        <td class="text-center">
+                                            <button (click) = "nouvelEmploye(employe)" class="btn btn-info">
+                                                Modifier
+                                            </button>
+                                            <button (click) = "archiverEmploye(employe)" class="btn btn-warning">
+                                                Retablir
+                                            </button>
                                         </td>
                                     </tr>
                                 </tbody>

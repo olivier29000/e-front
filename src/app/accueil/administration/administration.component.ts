@@ -14,6 +14,8 @@ export class AdministrationComponent implements OnInit {
 
   listeEmploye : Utilisateur[];
 
+  listeEmployeArchived : Utilisateur[];
+
   constructor(
     public modalService: NgbModal,
     private utilisateurService : UtilisateurService,
@@ -26,6 +28,9 @@ export class AdministrationComponent implements OnInit {
   initialisation(){
     this.utilisateurService.getAllUtilisateur().subscribe(
       listeEmploye => this.listeEmploye = listeEmploye
+    )
+    this.utilisateurService.getAllUtilisateurArchived().subscribe(
+      listeEmployeArchived => this.listeEmployeArchived = listeEmployeArchived
     )
   }
 
@@ -40,6 +45,12 @@ export class AdministrationComponent implements OnInit {
      (reason) => {
       console.log(reason)
     });
+  }
+
+  archiverEmploye(employe){
+    this.utilisateurService.archiveUtilisateurById(employe.id).subscribe(
+      res => this.initialisation()
+    )
   }
 
   getDateString(dateNumber : number) : string{

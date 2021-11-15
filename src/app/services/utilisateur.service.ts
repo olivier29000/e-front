@@ -18,6 +18,10 @@ export class UtilisateurService {
     return this.http.get<Utilisateur[]>(`${URL_BACKEND}/getAllUtilisateur`, { withCredentials: true });
   }
 
+  getAllUtilisateurArchived() : Observable<Utilisateur[]>{
+    return this.http.get<Utilisateur[]>(`${URL_BACKEND}/getAllUtilisateurArchived`, { withCredentials: true });
+  }
+
   getAllLogiciel() : Observable<Logiciel[]>{
     return this.http.get<Logiciel[]>(`${URL_BACKEND}/getAllLogiciel`, { withCredentials: true });
   }
@@ -36,5 +40,9 @@ export class UtilisateurService {
 
   modifierMotDePasse(nouveauMotDePasse : string, cleUrl :string) : Observable<void>{
     return this.http.get<void>(`${URL_BACKEND}/modifierMotDePasse/${nouveauMotDePasse}/${cleUrl}`);
+  }
+
+  archiveUtilisateurById(idUtilisateur : number) : Observable<void>{
+    return this.http.get<void>(`${URL_BACKEND}/archiveUtilisateurById/${idUtilisateur}`, { withCredentials: true });
   }
 }

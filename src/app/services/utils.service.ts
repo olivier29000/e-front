@@ -10,7 +10,6 @@ export class UtilsService {
   constructor() { }
 
   openImage(image : Image){
-    console.log(image)
     swal.fire({
       title: "Hello World",
       html: "<img src=\"data:image/jpg;base64,"+ image.picByte +"\" style='width:1000px;'>",
